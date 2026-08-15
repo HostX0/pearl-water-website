@@ -1,0 +1,39 @@
+name: Import Pearl Water website source
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/import-pearl.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  import-source:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout destination repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Clone approved Pearl source
+        run: |
+          git clone --depth 1 --branch pearl-water-website --single-branch https://github.com/HostX0/My.git /tmp/pearl-source
+
+      - name: Replace repository root with website project
+        run: |
+          rsync -a --delete \
+            --exclude '.git/' \
+            --exclude '.github/workflows/import-pearl.yml' \
+            /tmp/pearl-source/pearl-water-website/ ./
+
+      - name: Commit imported production source
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "feat: import Pearl Water Next.js production website" || exit 0
+          git push origin HEAD:main
