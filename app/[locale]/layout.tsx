@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { MotionProvider } from '@/components/MotionProvider';
+import { PearlIntro } from '@/components/PearlIntro';
 import { JsonLd } from '@/components/JsonLd';
 import { isLocale, localeMeta, locales, type Locale } from '@/lib/site';
 
@@ -23,6 +24,8 @@ export default async function LocaleLayout({ children, params }: { children: Rea
   return <html lang={meta.lang} dir={meta.dir}>
     <body className={locale === 'en' ? 'font-en' : 'font-ar'}>
       <a className="skip-link" href="#main-content">{skipLabel[locale]}</a>
+      <PearlIntro locale={locale}/>
+      <div className="scroll-progress" aria-hidden="true"><span className="scroll-progress-bar"/></div>
       <JsonLd locale={locale}/>
       <Header locale={locale}/>
       <MotionProvider><main id="main-content">{children}</main></MotionProvider>
