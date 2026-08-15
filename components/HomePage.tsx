@@ -9,6 +9,7 @@ export function HomePage({ locale }: { locale: Locale }) {
   const Arrow = locale === 'en' ? ArrowRight : ArrowLeft;
   const icons = [Droplets, ShieldCheck, Sparkles, MapPin];
   const contactDirectoryLabel = locale === 'en' ? '5 contact lines' : locale === 'ar' ? '5 أرقام للتواصل' : '5 هێڵی پەیوەندی';
+  const storyLocation = locale === 'en' ? 'Baghdad · Iraq' : locale === 'ar' ? 'بغداد · العراق' : 'بەغدا · عێراق';
 
   return <>
     <section className="home-hero" data-page-enter>
@@ -69,7 +70,7 @@ export function HomePage({ locale }: { locale: Locale }) {
     <section className="section story-home">
       <div className="site-shell story-home-grid">
         <div className="story-art" data-reveal>
-          <div className="iraq-word">IRAQ</div><div className="story-pearl"/><div className="story-wave"/><span>33.3152° N<br/>44.3661° E</span>
+          <div className="iraq-word">IRAQ</div><div className="story-pearl"/><div className="story-wave"/><span>{storyLocation}</span>
         </div>
         <div data-reveal><span className="eyebrow">{c.home.storyKicker}</span><h2>{c.home.storyTitle}</h2><p className="lead">{c.home.storyBody}</p><blockquote>{c.home.storyQuote}</blockquote><Link href={localizedPath(locale, 'about')} className="text-link">{c.common.learnMore}<Arrow size={17}/></Link></div>
       </div>
