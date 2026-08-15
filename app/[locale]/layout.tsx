@@ -8,7 +8,7 @@ import { Footer } from '@/components/Footer';
 import { MotionProvider } from '@/components/MotionProvider';
 import { PearlIntro } from '@/components/PearlIntro';
 import { JsonLd } from '@/components/JsonLd';
-import { isLocale, localeMeta, locales, productImages, type Locale } from '@/lib/site';
+import { isLocale, localeMeta, locales, type Locale } from '@/lib/site';
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -26,7 +26,6 @@ export default async function LocaleLayout({ children, params }: { children: Rea
     <head>
       <link rel="preconnect" href="https://www.pearl-iq.com"/>
       <link rel="dns-prefetch" href="https://www.pearl-iq.com"/>
-      <link rel="preload" as="image" href={productImages['1000']}/>
     </head>
     <body className={locale === 'en' ? 'font-en' : 'font-ar'}>
       <a className="skip-link" href="#main-content">{skipLabel[locale]}</a>
