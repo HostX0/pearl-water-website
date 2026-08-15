@@ -3,7 +3,7 @@ import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { notFound } from 'next/navigation';
 import { PageHero } from '@/components/PageHero';
 import { getContent } from '@/lib/content';
-import { isLocale, localizedProductPath, productImages, productSizes, site, type Locale } from '@/lib/site';
+import { isLocale, localizedPath, localizedProductPath, productImages, productSizes, type Locale } from '@/lib/site';
 import { pageMetadata } from '@/lib/seo';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
@@ -17,6 +17,7 @@ export default async function Products({ params }: { params: Promise<{ locale: s
   const locale = raw as Locale;
   const c = getContent(locale);
   const Arrow = locale === 'en' ? ArrowRight : ArrowLeft;
+  const directoryLabel = locale === 'en' ? 'View all contact lines' : locale === 'ar' ? 'عرض جميع أرقام التواصل' : 'هەموو هێڵەکانی پەیوەندی';
 
   return <>
     <PageHero locale={locale} eyebrow={c.products.eyebrow} title={c.products.title} intro={c.products.intro}/>
@@ -32,6 +33,6 @@ export default async function Products({ params }: { params: Promise<{ locale: s
         })}
       </div>
     </section>
-    <section className="product-contact"><div className="site-shell simple-cta light" data-reveal><h2>{c.contact.sales}</h2><a href={`tel:${site.phone}`} className="btn btn-white" dir="ltr">{site.phoneDisplay}</a></div></section>
+    <section className="product-contact"><div className="site-shell simple-cta light" data-reveal><h2>{c.contact.sales}</h2><Link href={localizedPath(locale,'contact')} className="btn btn-white">{directoryLabel}<Arrow size={17}/></Link></div></section>
   </>;
 }
