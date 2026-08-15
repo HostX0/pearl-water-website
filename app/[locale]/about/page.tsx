@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { Droplets, MapPin, ShieldCheck, Sparkles } from 'lucide-react';
 import { notFound } from 'next/navigation';
 import { PageHero } from '@/components/PageHero';
 import { getContent } from '@/lib/content';
@@ -18,11 +19,34 @@ const principles = {
 
 const valuesLabel = { en: 'Brand values', ar: 'قيم اللؤلؤة', ku: 'بەهاکانی Pearl' } as const;
 
+const mission = {
+  en: {
+    eyebrow: 'Our mission',
+    title: 'Make clean, refreshing water a reliable everyday choice.',
+    body: 'Pearl brings together a familiar Iraqi identity, practical formats and a clear commitment to a consistent consumer experience — at home, at work, on the move and in hospitality.',
+    essence: ['Purity', 'Trust', 'Freshness', 'Iraqi heritage'],
+  },
+  ar: {
+    eyebrow: 'مهمتنا',
+    title: 'أن تكون المياه النظيفة والمنعشة خياراً يومياً يمكن الاعتماد عليه.',
+    body: 'تجمع اللؤلؤة بين هوية عراقية مألوفة، أحجام عملية، وتجربة واضحة ومتسقة للمستهلك — في البيت، العمل، الطريق، والضيافة.',
+    essence: ['النقاء', 'الثقة', 'الانتعاش', 'الإرث العراقي'],
+  },
+  ku: {
+    eyebrow: 'ئەرکی ئێمە',
+    title: 'ئاوی پاک و تازە ببێتە هەڵبژاردەیەکی ڕۆژانەی جێی متمانە.',
+    body: 'Pearl ناسنامەیەکی عێراقیی ئاشنا، قەبارەی پراکتیکی و ئەزموونێکی ڕوون و یەکگرتوو بۆ بەکارهێنانی ماڵ، کار، هاتوچۆ و میوانداری پێکەوە دەهێنێت.',
+    essence: ['پاکی', 'متمانە', 'تازەیی', 'میراتی عێراقی'],
+  },
+} as const;
+
 export default async function About({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: raw } = await params;
   if (!isLocale(raw)) notFound();
   const locale = raw as Locale;
   const c = getContent(locale);
+  const m = mission[locale];
+  const missionIcons = [Droplets, ShieldCheck, Sparkles, MapPin];
 
   return <>
     <PageHero locale={locale} eyebrow={c.about.eyebrow} title={c.about.title} intro={c.about.intro}/>
@@ -34,6 +58,25 @@ export default async function About({ params }: { params: Promise<{ locale: stri
           <p className="lead">{c.about.heritageBody}</p>
           <div className="brand-rule">{principles[locale].map((item, index) => <span key={item}>{item}{index < 2 && <i/>}</span>)}</div>
         </div>
+      </div>
+    </section>
+
+    <section className="section mission-section">
+      <div className="site-shell mission-panel" data-reveal>
+        <div className="mission-copy">
+          <span className="eyebrow eyebrow-light">{m.eyebrow}</span>
+          <h2>{m.title}</h2>
+          <p>{m.body}</p>
+        </div>
+        <div className="mission-essence">
+          {m.essence.map((item, index) => {
+            const Icon = missionIcons[index];
+            return <div className="mission-essence-item" key={item} data-reveal>
+              <span><Icon size={19}/></span><strong>{item}</strong><small>0{index + 1}</small>
+            </div>;
+          })}
+        </div>
+        <div className="mission-wave" aria-hidden="true"><i/><i/><i/></div>
       </div>
     </section>
 
