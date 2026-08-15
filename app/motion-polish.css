@@ -17,6 +17,15 @@
 [dir=rtl] .intro-logo{width:245px}
 .intro-logo .brand-logo{width:100%;max-height:105px}
 
+/* Mission storytelling */
+.mission-section{padding-top:0;background:#fff}
+.mission-panel{min-height:610px;border-radius:22px;background:linear-gradient(145deg,#073A70 0%,#0A4E93 58%,#0B5BA8 100%);color:#fff;position:relative;overflow:hidden;padding:clamp(34px,5vw,70px);display:grid;grid-template-columns:.9fr 1.1fr;gap:7vw;align-items:center;isolation:isolate}
+.mission-panel:before{content:'';position:absolute;width:560px;aspect-ratio:1;border-radius:50%;inset-inline-end:-210px;top:-270px;background:radial-gradient(circle,rgba(158,230,255,.18),transparent 68%);z-index:-1}
+.mission-panel:after{content:'';position:absolute;width:420px;aspect-ratio:1;border-radius:50%;inset-inline-start:-180px;bottom:-260px;background:radial-gradient(circle,rgba(43,183,229,.14),transparent 70%);z-index:-1}
+.mission-copy{position:relative;z-index:3}.mission-copy h2{font-size:clamp(42px,5.2vw,76px);line-height:1.06;letter-spacing:-.045em;margin:0 0 24px;max-width:780px}.mission-copy p{color:#C8DCE8;line-height:1.95;font-size:clamp(15px,1.25vw,19px);margin:0;max-width:660px}
+[dir=rtl] .mission-copy h2{line-height:1.26;letter-spacing:-.018em}
+.mission-essence{display:grid;grid-template-columns:repeat(2,1fr);gap:13px;position:relative;z-index:3}.mission-essence-item{min-height:170px;border:1px solid rgba(255,255,255,.13);border-radius:16px;padding:23px;background:rgba(255,255,255,.055);backdrop-filter:blur(9px);display:flex;flex-direction:column;position:relative;transition:transform .3s ease,border-color .3s ease,background .3s ease}.mission-essence-item:hover{transform:translateY(-5px);border-color:rgba(158,230,255,.35);background:rgba(255,255,255,.085)}.mission-essence-item>span{width:43px;height:43px;border-radius:12px;display:grid;place-items:center;background:rgba(255,255,255,.10);color:#9EE6FF}.mission-essence-item strong{margin-top:auto;font-size:17px}.mission-essence-item small{position:absolute;top:22px;inset-inline-end:22px;color:#8CB3CA;font-size:10px;font-weight:800}.mission-wave{position:absolute;left:50%;bottom:-52px;width:80%;height:150px;transform:translateX(-50%);opacity:.16;pointer-events:none}.mission-wave i{position:absolute;inset-inline:0;border-top:1px solid #9EE6FF;border-radius:50%;height:80px}.mission-wave i:nth-child(2){top:26px;inset-inline:9%}.mission-wave i:nth-child(3){top:52px;inset-inline:18%}
+
 /* Scroll-linked quality line. JS updates --quality-progress via GSAP ScrollTrigger. */
 .quality-page-grid{--quality-progress:0%;position:relative}
 .quality-page-grid:before{content:'';position:absolute;top:-1px;inset-inline-start:0;width:var(--quality-progress);height:2px;background:linear-gradient(90deg,#0A4E93,#2BB7E5);border-radius:20px;z-index:2;pointer-events:none}
@@ -27,8 +36,11 @@
 .hero-visual:after{content:'';position:absolute;left:50%;bottom:7%;width:46%;height:7%;transform:translateX(-50%);border-radius:50%;background:radial-gradient(ellipse,rgba(7,58,112,.20),transparent 68%);filter:blur(7px);z-index:1}
 .story-product-card,.related-product-card,.product-card-link{backface-visibility:hidden;transform-style:preserve-3d}
 
+@media(max-width:1000px){
+  .mission-panel{grid-template-columns:1fr;min-height:0;gap:44px}.mission-copy{max-width:820px}.mission-essence{max-width:760px}
+}
 @media(max-width:720px){
-  .scroll-progress{height:2px}.intro-stage{height:340px}.intro-pearl{width:88px}.intro-logo{width:175px}[dir=rtl] .intro-logo{width:195px}.intro-water{height:95px}.quality-page-grid:before{display:none}
+  .scroll-progress{height:2px}.intro-stage{height:340px}.intro-pearl{width:88px}.intro-logo{width:175px}[dir=rtl] .intro-logo{width:195px}.intro-water{height:95px}.quality-page-grid:before{display:none}.mission-panel{padding:28px 22px;border-radius:17px;gap:34px}.mission-copy h2{font-size:clamp(36px,10.8vw,52px)}.mission-essence{grid-template-columns:1fr}.mission-essence-item{min-height:135px}
 }
 
 @media(prefers-reduced-motion:reduce){
