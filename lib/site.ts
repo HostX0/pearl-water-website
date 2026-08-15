@@ -25,17 +25,33 @@ export const localeMeta: Record<Locale, { label: string; dir: 'rtl' | 'ltr'; lan
   ku: { label: 'کوردی', dir: 'rtl', lang: 'ckb', ogLocale: 'ckb_IQ' },
 };
 
+export type PhoneLine = {
+  kind: 'sales' | 'service';
+  phone: string;
+  display: string;
+};
+
 export const site = {
   name: 'Pearl Water',
   arabicName: 'مياه اللؤلؤة',
   company: 'Bright Pearl for Purifying and Bottling Water',
   companyArabic: 'شركة بريق اللؤلؤة لتنقية وتعبئة المياه',
-  baseUrl: 'https://pearl-water-public.vercel.app',
+  baseUrl: process.env.NEXT_PUBLIC_SITE_URL || 'https://pearl-water-website.vercel.app',
+  legacyWebsite: 'https://pearl-iq.com/',
   map: 'https://maps.app.goo.gl/2xrSgAAN3Sq8dqg78',
-  phone: '+9647704622005',
-  phoneDisplay: '0770 462 2005',
   city: 'Baghdad, Iraq',
   country: 'Iraq',
+  salesPhones: [
+    { kind: 'sales', phone: '+9647730021087', display: '0773 002 1087' },
+    { kind: 'sales', phone: '+9647730021084', display: '0773 002 1084' },
+    { kind: 'sales', phone: '+9647704621087', display: '0770 462 1087' },
+    { kind: 'sales', phone: '+9647704621084', display: '0770 462 1084' },
+  ] as PhoneLine[],
+  customerService: { kind: 'service', phone: '+9647704622005', display: '0770 462 2005' } as PhoneLine,
+  logoSources: {
+    english: 'https://pngup.com/Fag7/English logo.png',
+    arabic: 'https://pngup.com/0wVE/»rabic logo .png',
+  },
 };
 
 export const productImages: Record<ProductSize, string> = {
