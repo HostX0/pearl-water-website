@@ -8,6 +8,7 @@ export function HomePage({ locale }: { locale: Locale }) {
   const c = getContent(locale);
   const Arrow = locale === 'en' ? ArrowRight : ArrowLeft;
   const icons = [Droplets, ShieldCheck, Sparkles, MapPin];
+  const contactDirectoryLabel = locale === 'en' ? '5 contact lines' : locale === 'ar' ? '5 أرقام للتواصل' : '5 هێڵی پەیوەندی';
 
   return <>
     <section className="home-hero" data-page-enter>
@@ -87,7 +88,7 @@ export function HomePage({ locale }: { locale: Locale }) {
       <div className="site-shell contact-preview-card" data-reveal>
         <div><span className="eyebrow">Pearl · Baghdad</span><h2>{c.home.ctaTitle}</h2><p>{c.home.ctaBody}</p></div>
         <div className="contact-preview-actions">
-          <a href={`tel:${site.phone}`}><Phone size={20}/><span>{c.common.call}</span><strong dir="ltr">{site.phoneDisplay}</strong></a>
+          <Link href={localizedPath(locale,'contact')}><Phone size={20}/><span>{c.common.contact}</span><strong>{contactDirectoryLabel}</strong></Link>
           <a href={site.map} target="_blank" rel="noreferrer"><MapPin size={20}/><span>{c.common.directions}</span><strong>{site.city}</strong></a>
         </div>
       </div>
