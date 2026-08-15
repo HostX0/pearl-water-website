@@ -19,6 +19,14 @@ export function MotionProvider({ children }: { children: React.ReactNode }) {
     const ctx = gsap.context(() => {
       gsap.defaults({ ease: 'power3.out' });
 
+      const progress = document.querySelector<HTMLElement>('.scroll-progress-bar');
+      if (progress) {
+        gsap.fromTo(progress,
+          { scaleX: 0, transformOrigin: document.documentElement.dir === 'rtl' ? 'right center' : 'left center' },
+          { scaleX: 1, ease: 'none', scrollTrigger: { start: 0, end: 'max', scrub: .12 } },
+        );
+      }
+
       gsap.from('[data-page-enter]', { opacity: 0, y: 22, duration: .8 });
 
       gsap.utils.toArray<HTMLElement>('[data-reveal]').forEach((el) => {
@@ -169,6 +177,15 @@ export function MotionProvider({ children }: { children: React.ReactNode }) {
           scrollTrigger: { trigger: drop, start: 'top 88%', once: true },
         });
       });
+
+      const qualityGrid = document.querySelector<HTMLElement>('.quality-page-grid');
+      if (qualityGrid) {
+        gsap.fromTo(qualityGrid, { '--quality-progress': '0%' }, {
+          '--quality-progress': '100%',
+          ease: 'none',
+          scrollTrigger: { trigger: qualityGrid, start: 'top 72%', end: 'bottom 35%', scrub: .7 },
+        });
+      }
 
       const detailProduct = document.querySelector<HTMLElement>('.product-detail-visual img');
       if (detailProduct) {
