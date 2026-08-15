@@ -36,7 +36,7 @@ export const site = {
   arabicName: 'مياه اللؤلؤة',
   company: 'Bright Pearl for Purifying and Bottling Water',
   companyArabic: 'شركة بريق اللؤلؤة لتنقية وتعبئة المياه',
-  baseUrl: process.env.NEXT_PUBLIC_SITE_URL || 'https://pearl-water-website.vercel.app',
+  baseUrl: process.env.NEXT_PUBLIC_SITE_URL || 'https://pearl-water-iraq-hostx0s-projects.vercel.app',
   legacyWebsite: 'https://pearl-iq.com/',
   map: 'https://maps.app.goo.gl/2xrSgAAN3Sq8dqg78',
   city: 'Baghdad, Iraq',
