@@ -1,6 +1,7 @@
 import '../globals.css';
 import '../extra.css';
 import '../polish.css';
+import '../motion-polish.css';
 import { notFound } from 'next/navigation';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
