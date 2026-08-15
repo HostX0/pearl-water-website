@@ -88,7 +88,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
             <h2>{item.name}</h2>
             <p>{item.body}</p>
             <div className="product-detail-actions">
-              <a className="btn btn-primary" href={`tel:${site.phone}`}><Phone size={17}/>{copy.cta}</a>
+              <Link className="btn btn-primary" href={localizedPath(locale,'contact')}><Phone size={17}/>{copy.cta}</Link>
               <a className="btn btn-secondary" href={site.map} target="_blank" rel="noreferrer">{c.common.directions}</a>
             </div>
           </div>
