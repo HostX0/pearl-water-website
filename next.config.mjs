@@ -1,14 +1,33 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  images: { remotePatterns: [{ protocol: 'https', hostname: 'www.pearl-iq.com', pathname: '/assets/img/**' }] },
+  images: {
+    remotePatterns: [
+      { protocol: 'https', hostname: 'www.pearl-iq.com', pathname: '/assets/img/**' },
+    ],
+  },
   poweredByHeader: false,
   compress: true,
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/ar',
+        permanent: false,
+      },
+    ];
+  },
   async headers() {
-    return [{ source: '/(.*)', headers: [
-      { key: 'X-Content-Type-Options', value: 'nosniff' },
-      { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
-      { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=()' },
-    ] }];
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          { key: 'X-Content-Type-Options', value: 'nosniff' },
+          { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+          { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=()' },
+        ],
+      },
+    ];
   },
 };
+
 export default nextConfig;
