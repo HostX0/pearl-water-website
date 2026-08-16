@@ -7,6 +7,7 @@ import '../media-system.css';
 import '../refinement.css';
 import '../final-polish.css';
 import '../header-mobile.css';
+import '../feedback-fixes.css';
 import { notFound } from 'next/navigation';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';

@@ -61,7 +61,7 @@ export const productImages: Record<ProductSize, string> = {
   '1000': media.products.front1000,
   '500': media.products.front500,
   '330': media.products.front330,
-  '200': 'https://www.pearl-iq.com/assets/img/200-q.png',
+  '200': 'https://drive.google.com/thumbnail?id=1E_0jguyCKFLmuZjSOG3m0RtnARRhn6Rb&sz=w1800',
 };
 
 export const pagePath: Record<PageKey, string> = {
