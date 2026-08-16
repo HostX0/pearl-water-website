@@ -3,7 +3,11 @@ const nextConfig = {
   images: {
     remotePatterns: [
       { protocol: 'https', hostname: 'www.pearl-iq.com', pathname: '/assets/img/**' },
+      { protocol: 'https', hostname: 'drive.google.com', pathname: '/thumbnail' },
+      { protocol: 'https', hostname: 'lh3.googleusercontent.com', pathname: '/**' },
     ],
+    formats: ['image/avif', 'image/webp'],
+    minimumCacheTTL: 86400,
   },
   poweredByHeader: false,
   compress: true,
