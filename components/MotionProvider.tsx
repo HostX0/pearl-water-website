@@ -16,14 +16,17 @@ export function MotionProvider({ children }: { children: React.ReactNode }) {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduced) return;
 
+    const mm = gsap.matchMedia();
+    const rtl = document.documentElement.dir === 'rtl';
+
     const ctx = gsap.context(() => {
       gsap.defaults({ ease: 'power3.out' });
 
       const progress = document.querySelector<HTMLElement>('.scroll-progress-bar');
       if (progress) {
         gsap.fromTo(progress,
-          { scaleX: 0, transformOrigin: document.documentElement.dir === 'rtl' ? 'right center' : 'left center' },
-          { scaleX: 1, ease: 'none', scrollTrigger: { start: 0, end: 'max', scrub: .12 } },
+          { scaleX: 0, transformOrigin: rtl ? 'right center' : 'left center' },
+          { scaleX: 1, ease: 'none', scrollTrigger: { start: 0, end: 'max', scrub: .14 } },
         );
       }
 
@@ -32,74 +35,86 @@ export function MotionProvider({ children }: { children: React.ReactNode }) {
       gsap.utils.toArray<HTMLElement>('[data-reveal]').forEach((el) => {
         gsap.from(el, {
           opacity: 0,
-          y: 46,
-          duration: .95,
-          scrollTrigger: { trigger: el, start: 'top 88%', once: true },
+          y: 40,
+          duration: .85,
+          scrollTrigger: { trigger: el, start: 'top 89%', once: true },
         });
       });
 
       gsap.utils.toArray<HTMLElement>('[data-reveal-line]').forEach((el) => {
         gsap.from(el, {
           scaleX: 0,
-          transformOrigin: document.documentElement.dir === 'rtl' ? 'right center' : 'left center',
+          transformOrigin: rtl ? 'right center' : 'left center',
           duration: 1.05,
           scrollTrigger: { trigger: el, start: 'top 90%', once: true },
         });
       });
 
-      gsap.utils.toArray<HTMLElement>('[data-parallax]').forEach((el) => {
-        const speed = Number(el.dataset.parallax || 12);
-        gsap.to(el, {
-          yPercent: speed,
-          ease: 'none',
-          scrollTrigger: { trigger: el.parentElement || el, start: 'top bottom', end: 'bottom top', scrub: 1 },
+      /* Full parallax is reserved for devices with enough viewport space. */
+      mm.add('(min-width: 901px)', () => {
+        gsap.utils.toArray<HTMLElement>('[data-parallax]').forEach((el) => {
+          const speed = Number(el.dataset.parallax || 10);
+          gsap.to(el, {
+            yPercent: speed,
+            ease: 'none',
+            scrollTrigger: { trigger: el.parentElement || el, start: 'top bottom', end: 'bottom top', scrub: .9 },
+          });
+        });
+
+        const header = document.querySelector<HTMLElement>('[data-site-header]');
+        if (header) {
+          ScrollTrigger.create({
+            start: 0,
+            end: 'max',
+            onUpdate: (self) => {
+              const shouldHide = self.direction === 1 && self.scroll() > 190;
+              gsap.to(header, { yPercent: shouldHide ? -125 : 0, duration: .3, ease: 'power2.out', overwrite: true });
+            },
+          });
+        }
+
+        const hero = document.querySelector<HTMLElement>('.home-hero');
+        if (hero) {
+          gsap.timeline({ scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: 1 } })
+            .to('.hero-copy', { y: -64, opacity: .42, ease: 'none' }, 0)
+            .to('.hero-visual', { y: 42, scale: .95, ease: 'none' }, 0)
+            .to('.hero-ripples', { scale: 1.14, rotate: 7, ease: 'none' }, 0)
+            .to('.hero-glow', { scale: 1.15, opacity: .56, ease: 'none' }, 0);
+        }
+
+        gsap.utils.toArray<HTMLElement>('.story-product-card').forEach((card) => {
+          const image = card.querySelector<HTMLElement>('img');
+          if (image) {
+            gsap.fromTo(image, { yPercent: 4 }, {
+              yPercent: -6,
+              ease: 'none',
+              scrollTrigger: { trigger: card, start: 'top bottom', end: 'bottom top', scrub: .8 },
+            });
+          }
         });
       });
 
-      const header = document.querySelector<HTMLElement>('[data-site-header]');
-      if (header) {
-        ScrollTrigger.create({
-          start: 0,
-          end: 'max',
-          onUpdate: (self) => {
-            const shouldHide = self.direction === 1 && self.scroll() > 180;
-            gsap.to(header, { yPercent: shouldHide ? -125 : 0, duration: .32, ease: 'power2.out', overwrite: true });
-          },
+      /* Tablet motion keeps depth but avoids sticky/parallax fatigue. */
+      mm.add('(min-width: 681px) and (max-width: 900px)', () => {
+        gsap.utils.toArray<HTMLElement>('[data-parallax]').forEach((el) => {
+          const speed = Number(el.dataset.parallax || 10) * .28;
+          gsap.to(el, {
+            yPercent: speed,
+            ease: 'none',
+            scrollTrigger: { trigger: el.parentElement || el, start: 'top bottom', end: 'bottom top', scrub: 1.2 },
+          });
         });
-      }
+      });
 
-      const heroProduct = document.querySelector<HTMLElement>('.hero-product');
-      if (heroProduct) {
-        gsap.fromTo(heroProduct,
-          { y: 88, opacity: 0, rotate: -2, scale: .86 },
-          { y: 0, opacity: 1, rotate: 0, scale: 1, duration: 1.35, delay: .08 },
-        );
-      }
-
-      const heroPearl = document.querySelector<HTMLElement>('.hero-pearl');
-      if (heroPearl) {
-        gsap.from(heroPearl, { y: -54, opacity: 0, scale: .78, duration: 1.45, delay: .25 });
-        gsap.to(heroPearl, { y: 12, duration: 3.8, repeat: -1, yoyo: true, ease: 'sine.inOut' });
-      }
-
-      const heroLogo = document.querySelector<HTMLElement>('.hero-logo-card');
-      if (heroLogo) gsap.from(heroLogo, { opacity: 0, x: document.documentElement.dir === 'rtl' ? 24 : -24, scale: .94, duration: .9, delay: .55 });
-
-      const hero = document.querySelector<HTMLElement>('.home-hero');
-      if (hero) {
-        const heroTl = gsap.timeline({
-          scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: 1 },
-        });
-        heroTl
-          .to('.hero-copy', { y: -72, opacity: .38, ease: 'none' }, 0)
-          .to('.hero-visual', { y: 48, scale: .94, ease: 'none' }, 0)
-          .to('.hero-ripples', { scale: 1.16, rotate: 8, ease: 'none' }, 0)
-          .to('.hero-glow', { scale: 1.18, opacity: .55, ease: 'none' }, 0);
-      }
+      /* Mobile keeps the header reachable and prioritizes fast, stable content. */
+      mm.add('(max-width: 680px)', () => {
+        const header = document.querySelector<HTMLElement>('[data-site-header]');
+        if (header) gsap.set(header, { yPercent: 0 });
+      });
 
       gsap.utils.toArray<HTMLElement>('.ripple-ring').forEach((ring, i) => {
         gsap.to(ring, {
-          scale: 1.18 + i * .08,
+          scale: 1.16 + i * .07,
           opacity: .055,
           duration: 2.8 + i * .4,
           repeat: -1,
@@ -111,9 +126,9 @@ export function MotionProvider({ children }: { children: React.ReactNode }) {
 
       gsap.utils.toArray<HTMLElement>('.page-hero-orb').forEach((orb, i) => {
         gsap.to(orb, {
-          x: i % 2 ? -18 : 16,
-          y: i % 2 ? 14 : -16,
-          scale: i % 2 ? 1.06 : .96,
+          x: i % 2 ? -14 : 14,
+          y: i % 2 ? 12 : -14,
+          scale: i % 2 ? 1.05 : .97,
           duration: 5.2 + i,
           repeat: -1,
           yoyo: true,
@@ -122,32 +137,29 @@ export function MotionProvider({ children }: { children: React.ReactNode }) {
       });
 
       const pageMark = document.querySelector<HTMLElement>('.page-hero-mark');
-      if (pageMark) gsap.from(pageMark, { opacity: 0, y: 40, scale: .88, duration: 1.1, delay: .12 });
+      if (pageMark) gsap.from(pageMark, { opacity: 0, y: 34, scale: .9, duration: 1, delay: .1 });
+
+      const heroLogo = document.querySelector<HTMLElement>('.hero-logo-card');
+      if (heroLogo) gsap.from(heroLogo, { opacity: 0, x: rtl ? 22 : -22, scale: .95, duration: .85, delay: .45 });
 
       gsap.utils.toArray<HTMLElement>('.story-product-card').forEach((card, i) => {
         gsap.from(card, {
           opacity: 0,
-          y: 82,
-          rotate: i % 2 ? 1.1 : -1.1,
-          duration: 1,
-          scrollTrigger: { trigger: card, start: 'top 84%', once: true },
+          y: 62,
+          rotate: i % 2 ? .7 : -.7,
+          duration: .9,
+          scrollTrigger: { trigger: card, start: 'top 86%', once: true },
         });
-        const image = card.querySelector<HTMLElement>('img');
-        if (image) {
-          gsap.fromTo(image, { yPercent: 5 }, {
-            yPercent: -7,
-            ease: 'none',
-            scrollTrigger: { trigger: card, start: 'top bottom', end: 'bottom top', scrub: .8 },
-          });
-        }
       });
 
       const productStory = document.querySelector<HTMLElement>('.product-story');
       if (productStory) {
-        gsap.fromTo('.product-story-copy', { y: 35 }, {
-          y: -20,
-          ease: 'none',
-          scrollTrigger: { trigger: productStory, start: 'top bottom', end: 'bottom top', scrub: 1 },
+        mm.add('(min-width: 901px)', () => {
+          gsap.fromTo('.product-story-copy', { y: 28 }, {
+            y: -16,
+            ease: 'none',
+            scrollTrigger: { trigger: productStory, start: 'top bottom', end: 'bottom top', scrub: 1 },
+          });
         });
       }
 
@@ -155,25 +167,23 @@ export function MotionProvider({ children }: { children: React.ReactNode }) {
       if (storyWave) {
         gsap.from(storyWave, {
           scaleX: 0,
-          transformOrigin: document.documentElement.dir === 'rtl' ? 'right center' : 'left center',
-          duration: 1.25,
+          transformOrigin: rtl ? 'right center' : 'left center',
+          duration: 1.2,
           scrollTrigger: { trigger: storyWave, start: 'top 82%', once: true },
         });
       }
 
       const storyPearl = document.querySelector<HTMLElement>('.story-pearl');
-      if (storyPearl) {
-        gsap.to(storyPearl, { y: -16, duration: 3.8, repeat: -1, yoyo: true, ease: 'sine.inOut' });
-      }
+      if (storyPearl) gsap.to(storyPearl, { y: -14, duration: 3.8, repeat: -1, yoyo: true, ease: 'sine.inOut' });
 
       gsap.utils.toArray<HTMLElement>('.quality-drop').forEach((drop, i) => {
         gsap.from(drop, {
           opacity: 0,
-          scale: .35,
-          rotate: -18,
-          duration: .75,
-          delay: i * .05,
-          ease: 'back.out(1.7)',
+          scale: .4,
+          rotate: -14,
+          duration: .7,
+          delay: i * .045,
+          ease: 'back.out(1.6)',
           scrollTrigger: { trigger: drop, start: 'top 88%', once: true },
         });
       });
@@ -187,26 +197,28 @@ export function MotionProvider({ children }: { children: React.ReactNode }) {
         });
       }
 
-      const detailProduct = document.querySelector<HTMLElement>('.product-detail-visual img');
+      const detailProduct = document.querySelector<HTMLElement>('.product-detail-image-shell img');
       if (detailProduct) {
-        gsap.from(detailProduct, { opacity: 0, y: 70, scale: .88, rotate: -1.5, duration: 1.2, delay: .12 });
-        gsap.to(detailProduct, {
-          yPercent: 8,
-          ease: 'none',
-          scrollTrigger: { trigger: '.product-detail-hero', start: 'top top', end: 'bottom top', scrub: 1 },
+        gsap.from(detailProduct, { opacity: 0, y: 54, scale: .9, rotate: -1, duration: 1.05, delay: .1 });
+        mm.add('(min-width: 901px)', () => {
+          gsap.to(detailProduct, {
+            yPercent: 6,
+            ease: 'none',
+            scrollTrigger: { trigger: '.product-detail-hero', start: 'top top', end: 'bottom top', scrub: 1 },
+          });
         });
       }
 
       const detailPearl = document.querySelector<HTMLElement>('.product-detail-pearl');
       if (detailPearl) {
-        gsap.from(detailPearl, { opacity: 0, y: -42, scale: .78, duration: 1.2, delay: .28 });
-        gsap.to(detailPearl, { y: 10, duration: 3.6, repeat: -1, yoyo: true, ease: 'sine.inOut' });
+        gsap.from(detailPearl, { opacity: 0, y: -34, scale: .8, duration: 1.05, delay: .25 });
+        gsap.to(detailPearl, { y: 9, duration: 3.6, repeat: -1, yoyo: true, ease: 'sine.inOut' });
       }
 
       gsap.utils.toArray<HTMLElement>('.product-detail-water i').forEach((ring, i) => {
         gsap.fromTo(ring,
-          { scale: .84 + i * .02, opacity: .25 },
-          { scale: 1.1 + i * .07, opacity: .05, duration: 3.2 + i * .55, repeat: -1, yoyo: true, ease: 'sine.inOut', delay: i * .25 },
+          { scale: .86 + i * .02, opacity: .22 },
+          { scale: 1.08 + i * .06, opacity: .045, duration: 3.2 + i * .5, repeat: -1, yoyo: true, ease: 'sine.inOut', delay: i * .22 },
         );
       });
 
@@ -216,14 +228,14 @@ export function MotionProvider({ children }: { children: React.ReactNode }) {
           gsap.from(road, {
             scaleX: 0,
             transformOrigin: i % 2 ? 'right center' : 'left center',
-            duration: 1.1 + i * .12,
-            scrollTrigger: { trigger: mapVisual, start: 'top 82%', once: true },
+            duration: 1 + i * .1,
+            scrollTrigger: { trigger: mapVisual, start: 'top 84%', once: true },
           });
         });
-        gsap.from('.map-pin-core', { opacity: 0, y: -36, scale: .6, duration: .9, ease: 'back.out(1.8)', scrollTrigger: { trigger: mapVisual, start: 'top 80%', once: true } });
-        gsap.to('.map-pin-core', { y: -8, duration: 2.2, repeat: -1, yoyo: true, ease: 'sine.inOut' });
+        gsap.from('.map-pin-core', { opacity: 0, y: -30, scale: .65, duration: .8, ease: 'back.out(1.7)', scrollTrigger: { trigger: mapVisual, start: 'top 82%', once: true } });
+        gsap.to('.map-pin-core', { y: -7, duration: 2.2, repeat: -1, yoyo: true, ease: 'sine.inOut' });
         gsap.utils.toArray<HTMLElement>('.map-rings i').forEach((ring, i) => {
-          gsap.to(ring, { scale: 1.22 + i * .18, opacity: 0, duration: 2.5, repeat: -1, delay: i * .55, ease: 'power1.out' });
+          gsap.to(ring, { scale: 1.18 + i * .16, opacity: 0, duration: 2.5, repeat: -1, delay: i * .52, ease: 'power1.out' });
         });
       }
 
@@ -231,8 +243,8 @@ export function MotionProvider({ children }: { children: React.ReactNode }) {
     }, root);
 
     return () => {
+      mm.revert();
       ctx.revert();
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
   }, { scope: root, dependencies: [pathname], revertOnUpdate: true });
 
