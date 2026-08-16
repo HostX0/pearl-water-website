@@ -18,50 +18,84 @@ const principles = {
   ku: ['عێراقی', 'پاک', 'جێی متمانە'],
 } as const;
 
-const valuesLabel = { en: 'What Pearl stands for', ar: 'شنو تمثل اللؤلؤة', ku: 'Pearl چی نوێنەرایەتی دەکات' } as const;
-
 const pageCopy = {
   en: {
+    heroEyebrow: 'Our story',
+    heroTitle: 'An Iraqi name made for everyday life.',
+    heroBody: 'Pearl is purified water produced in Baghdad for the moments people live every day — at home, at work, in meetings, on the move and around the table.',
     brandEyebrow: 'Pearl · Baghdad',
-    brandTitle: 'A familiar Iraqi name, refreshed for the way people live today.',
-    brandBody: 'Pearl brings purified water into the moments that shape everyday life — family meals, workdays, meetings, hospitality and events.',
-    facilityEyebrow: 'Inside the brand',
-    facilityTitle: 'Trust starts with the work behind the bottle.',
-    facilityBody: 'Production, quality routines and attention to detail are what turn a familiar blue bottle into a brand people can return to every day.',
+    brandTitle: 'Familiar by name. Fresh in the way it shows up today.',
+    brandBody: 'Pearl belongs in the moments that shape everyday life: family meals, workdays, meetings, hospitality and events. A clear Iraqi identity, four practical formats and one familiar experience.',
+    facilityEyebrow: 'Behind Pearl',
+    facilityTitle: 'The bottle is simple. The work behind it is not.',
+    facilityBody: 'Production, quality routines and attention to detail are what keep Pearl consistent from one format to the next and from the plant to the people who choose it.',
     cards: ['Production & filling', 'Care in every detail', 'Made in Baghdad'],
     iraqCaption: 'Iraqi by identity. Close to everyday life.',
     missionEyebrow: 'Our mission',
     missionTitle: 'Make clean, refreshing water an easy everyday choice.',
-    missionBody: 'Pearl combines a familiar Iraqi identity with practical formats and a consistent experience for home, work, movement and hospitality.',
+    missionBody: 'Pearl combines a familiar Iraqi identity with practical formats for home, work, movement, meetings and hospitality.',
     essence: ['Purity', 'Trust', 'Freshness', 'Iraqi heritage'],
+    valuesEyebrow: 'What matters to us',
+    valuesTitle: 'Simple values you should feel in every Pearl experience.',
+    valuesBody: 'Clean water, dependable quality, practical formats and a brand that feels proudly Iraqi without trying too hard.',
+    values: [
+      ['Purity', 'Clean, refreshing water stays at the center of every choice we make.'],
+      ['Reliability', 'The Pearl experience should feel familiar and dependable every time.'],
+      ['Care', 'From production to presentation, the small details matter.'],
+      ['Iraqi identity', 'Made in Baghdad, with a brand character that belongs here.'],
+    ],
   },
   ar: {
+    heroEyebrow: 'قصتنا',
+    heroTitle: 'اسم عراقي معمول لليوم العادي.',
+    heroBody: 'اللؤلؤة مياه منقاة تُنتج في بغداد للحظات اللي نعيشها كل يوم — بالبيت، الدوام، الاجتماعات، الطريق وحول السفرة.',
     brandEyebrow: 'اللؤلؤة · بغداد',
-    brandTitle: 'اسم عراقي مألوف، بروح أنظف وأقرب لليوم.',
-    brandBody: 'اللؤلؤة موجودة باللحظات اللي تصنع يومنا: سفرة البيت، الدوام، الاجتماعات، الضيافة والمناسبات. ماء منقاة بهوية نعرفها ونرتاح لها.',
-    facilityEyebrow: 'داخل اللؤلؤة',
-    facilityTitle: 'الثقة تبدأ من الشغل اللي وراء العبوة.',
-    facilityBody: 'الإنتاج، متابعة الجودة والعناية بالتفاصيل هي اللي تخلي العبوة الزرقاء المألوفة تجربة ثابتة تقدر ترجع لها كل يوم.',
+    brandTitle: 'اسم نعرفه، بصورة أقرب لليوم.',
+    brandBody: 'اللؤلؤة موجودة باللحظات اللي تصنع يومنا: سفرة البيت، الدوام، الاجتماعات، الضيافة والمناسبات. هوية عراقية واضحة، أربعة أحجام عملية وتجربة مألوفة.',
+    facilityEyebrow: 'وراء اللؤلؤة',
+    facilityTitle: 'العبوة بسيطة. الشغل اللي وراها مو بسيط.',
+    facilityBody: 'الإنتاج، متابعة الجودة والعناية بالتفاصيل هي اللي تخلي تجربة اللؤلؤة ثابتة من حجم للثاني، ومن المعمل إلى الشخص اللي يختارها.',
     cards: ['الإنتاج والتعبئة', 'العناية بكل تفصيل', 'صناعة من بغداد'],
     iraqCaption: 'عراقية بهويتها. قريبة من تفاصيل يومنا.',
     missionEyebrow: 'مهمتنا',
     missionTitle: 'نخلي الماء النظيف والمنعش خيار سهل لكل يوم.',
-    missionBody: 'اللؤلؤة تجمع هوية عراقية مألوفة ويا أحجام عملية وتجربة متسقة للبيت، العمل، الطريق والضيافة.',
+    missionBody: 'اللؤلؤة تجمع هوية عراقية مألوفة ويا أحجام عملية للبيت، الدوام، الطريق، الاجتماعات والضيافة.',
     essence: ['النقاء', 'الثقة', 'الانتعاش', 'الإرث العراقي'],
+    valuesEyebrow: 'شنو يهمنا',
+    valuesTitle: 'قيم بسيطة، المفروض تحسها بكل تجربة ويا اللؤلؤة.',
+    valuesBody: 'ماء نظيف، جودة تقدر تعتمد عليها، أحجام عملية وهوية عراقية واثقة بدون مبالغة.',
+    values: [
+      ['النقاء', 'الماء النظيف والمنعش يبقى أساس كل قرار نسويه.'],
+      ['الاعتمادية', 'تجربة اللؤلؤة لازم تبقى مألوفة وثابتة كل مرة.'],
+      ['العناية', 'من الإنتاج إلى طريقة عرض المنتج، التفاصيل الصغيرة تفرق.'],
+      ['الهوية العراقية', 'تُنتج في بغداد بهوية تحسها قريبة ومكانها هنا.'],
+    ],
   },
   ku: {
+    heroEyebrow: 'چیرۆکی ئێمە',
+    heroTitle: 'ناوێکی عێراقی بۆ ژیانی ڕۆژانە.',
+    heroBody: 'Pearl ئاوی پاککراوەیە کە لە بەغدا بەرهەم دەهێنرێت بۆ ساتە ڕۆژانەکان؛ ماڵ، کار، کۆبوونەوە، ڕێگا و مێزی خێزان.',
     brandEyebrow: 'Pearl · بەغدا',
-    brandTitle: 'ناوێکی عێراقیی ئاشنا، بە ڕۆحێکی پاکتر و مۆدێرنتر.',
-    brandBody: 'Pearl لە ساتەکانی ژیانی ڕۆژانەدا هەیە؛ مێزی خێزان، کار، کۆبوونەوە و میوانداری.',
-    facilityEyebrow: 'لە ناو Pearl',
-    facilityTitle: 'متمانە لە کارەکەی پشت پاکەتەکە دەست پێدەکات.',
+    brandTitle: 'ناوێکی ئاشنا، بە پێشکەشکردنێکی نزیکتر بە ئەمڕۆ.',
+    brandBody: 'Pearl لە ساتەکانی ژیانی ڕۆژانەدا هەیە؛ مێزی خێزان، کار، کۆبوونەوە و میوانداری. ناسنامەیەکی عێراقیی ڕوون و چوار قەبارەی پراکتیکی.',
+    facilityEyebrow: 'لە پشت Pearl',
+    facilityTitle: 'پاکەتەکە سادەیە، بەڵام کارەکەی پشتەوە سادە نییە.',
     facilityBody: 'بەرهەمهێنان، چاودێری کوالێتی و وردبینی ئەو شتانەن کە ئەزموونی Pearl یەکسان دەهێڵنەوە.',
     cards: ['بەرهەمهێنان و پڕکردنەوە', 'وردبینی لە هەر تەفسیلەکدا', 'بەرهەمی بەغدا'],
     iraqCaption: 'عێراقی بە ناسنامە. نزیک لە ژیانی ڕۆژانە.',
     missionEyebrow: 'ئەرکی ئێمە',
     missionTitle: 'ئاوی پاک و تازە ببێتە هەڵبژاردەیەکی ئاسان بۆ هەر ڕۆژێک.',
-    missionBody: 'Pearl ناسنامەیەکی عێراقیی ئاشنا لەگەڵ قەبارەی پراکتیکی و ئەزموونێکی یەکسان کۆدەکاتەوە.',
+    missionBody: 'Pearl ناسنامەیەکی عێراقیی ئاشنا لەگەڵ قەبارەی پراکتیکی بۆ ماڵ و کار و میوانداری کۆدەکاتەوە.',
     essence: ['پاکی', 'متمانە', 'تازەیی', 'میراتی عێراقی'],
+    valuesEyebrow: 'ئەو شتانەی گرنگن',
+    valuesTitle: 'بەها سادەکان کە دەبێت لە هەر ئەزموونی Pearl ـدا هەستیان پێ بکەیت.',
+    valuesBody: 'ئاوی پاک، کوالێتیی جێی متمانە، قەبارەی پراکتیکی و ناسنامەیەکی عێراقیی واثق.',
+    values: [
+      ['پاکی', 'ئاوی پاک و تازە لە ناوەندی هەر هەڵبژاردەیەکماندایە.'],
+      ['جێگیری', 'ئەزموونی Pearl دەبێت هەموو جارێک ئاشنا و جێی متمانە بێت.'],
+      ['وردبینی', 'لە بەرهەمهێنان تا پێشکەشکردن، وردەکارییەکان گرنگن.'],
+      ['ناسنامەی عێراقی', 'لە بەغدا بەرهەم دەهێنرێت و ناسنامەکەی شوێنی خۆی هەیە.'],
+    ],
   },
 } as const;
 
@@ -76,7 +110,7 @@ export default async function About({ params }: { params: Promise<{ locale: stri
   const gallery = [media.about.factory, media.about.team, media.about.operations];
 
   return <>
-    <PageHero locale={locale} eyebrow={c.about.eyebrow} title={c.about.title} intro={c.about.intro}/>
+    <PageHero locale={locale} eyebrow={p.heroEyebrow} title={p.heroTitle} intro={p.heroBody}/>
 
     <section className="section about-brand-visual">
       <div className="site-shell about-brand-card" data-reveal>
@@ -107,11 +141,11 @@ export default async function About({ params }: { params: Promise<{ locale: stri
 
     <section className="section section-ice">
       <div className="site-shell">
-        <div className="section-head centered" data-reveal><span className="eyebrow">{valuesLabel[locale]}</span><h2>{c.about.promiseTitle}</h2><p>{c.about.promiseBody}</p></div>
-        <div className="value-grid">{c.about.values.map((value, index) => <article key={value.title} data-reveal><span>0{index + 1}</span><h3>{value.title}</h3><p>{value.body}</p></article>)}</div>
+        <div className="section-head centered" data-reveal><span className="eyebrow">{p.valuesEyebrow}</span><h2>{p.valuesTitle}</h2><p>{p.valuesBody}</p></div>
+        <div className="value-grid">{p.values.map((value, index) => <article key={value[0]} data-reveal><span>0{index + 1}</span><h3>{value[0]}</h3><p>{value[1]}</p></article>)}</div>
       </div>
     </section>
 
-    <section className="section"><div className="site-shell simple-cta" data-reveal><h2>{c.home.productsTitle}</h2><Link href={localizedPath(locale, 'products')} className="btn btn-primary">{c.common.viewProducts}</Link></div></section>
+    <section className="section"><div className="site-shell simple-cta" data-reveal><h2>{locale === 'ar' ? 'شوف أحجام اللؤلؤة واختار اللي يناسب يومك.' : locale === 'en' ? 'Explore the Pearl format that fits your day.' : 'قەبارەی Pearl ـی گونجاو بۆ ڕۆژەکەت ببینە.'}</h2><Link href={localizedPath(locale, 'products')} className="btn btn-primary">{c.common.viewProducts}</Link></div></section>
   </>;
 }
