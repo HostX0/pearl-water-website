@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - 'scripts/final-engineering-pass.mjs'
+      - '.github/workflows/final-engineering-pass.yml'
 
 permissions:
   contents: write
