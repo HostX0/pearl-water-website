@@ -14,7 +14,7 @@ export function Header({ locale }: { locale: Locale }) {
   const c = getContent(locale);
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const suffix = pathname.replace(/^\/(ar|en|ku)/, '/').replace(/^\/(ar|en|ku)$/, '') || '';
+  const suffix = (pathname?.replace(/^\/(ar|en|ku)(?=\/|$)/, '') || '').replace(/^\/+/, '');
 
   return <header className="site-header" data-site-header>
     <div className="site-shell header-shell">
@@ -28,7 +28,7 @@ export function Header({ locale }: { locale: Locale }) {
       </nav>
       <div className="header-actions">
         <div className="language-switcher" aria-label="Language">
-          {locales.map((l) => <Link key={l} href={`/${l}${suffix === '/' ? '' : suffix}`} className={l === locale ? 'active' : ''}>{l === 'ar' ? 'AR' : l === 'en' ? 'EN' : 'KU'}</Link>)}
+          {locales.map((l) => <Link key={l} href={suffix ? `/${l}/${suffix}` : `/${l}`} className={l === locale ? 'active' : ''}>{l === 'ar' ? 'AR' : l === 'en' ? 'EN' : 'KU'}</Link>)}
         </div>
         <Link href={localizedPath(locale,'contact')} className="header-call"><Phone size={16}/><span>{c.common.contact}</span></Link>
         <button className="menu-button" onClick={() => setOpen(!open)} aria-label="Menu" aria-expanded={open}>{open ? <X/> : <Menu/>}</button>
