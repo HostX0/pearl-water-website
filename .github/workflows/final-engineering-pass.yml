@@ -31,6 +31,19 @@ jobs:
       - name: Apply final engineering pass
         run: node scripts/final-engineering-pass.mjs
 
+      - name: Normalize generated header regex
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('components/Header.tsx')
+          s = p.read_text()
+          bad = "const suffix = (pathname?.replace(/^/(ar|en|ku)(?=/|$)/, '') || '').replace(/^/+/, '');"
+          good = r"const suffix = (pathname?.replace(/^\/(ar|en|ku)(?=\/|$)/, '') || '').replace(/^\/+/, '');"
+          if bad not in s:
+              raise SystemExit('Expected generated header regex not found')
+          p.write_text(s.replace(bad, good))
+          PY
+
       - name: Production build
         run: npm run build
 
