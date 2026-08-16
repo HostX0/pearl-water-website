@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Droplets, MapPin, ShieldCheck, Sparkles, Factory, Gauge, HeartHandshake } from 'lucide-react';
+import { Droplets, MapPin, ShieldCheck, Sparkles, Factory, Gauge } from 'lucide-react';
 import { notFound } from 'next/navigation';
 import { PageHero } from '@/components/PageHero';
 import { getContent } from '@/lib/content';
@@ -29,7 +29,7 @@ const pageCopy = {
     facilityEyebrow: 'Behind Pearl',
     facilityTitle: 'The bottle is simple. The work behind it is not.',
     facilityBody: 'Production, quality routines and attention to detail are what keep Pearl consistent from one format to the next and from the plant to the people who choose it.',
-    cards: ['Production & filling', 'Care in every detail', 'Made in Baghdad'],
+    cards: ['Production & filling', 'Clean production routines', 'Made in Baghdad'],
     iraqCaption: 'Iraqi by identity. Close to everyday life.',
     missionEyebrow: 'Our mission',
     missionTitle: 'Make clean, refreshing water an easy everyday choice.',
@@ -55,7 +55,7 @@ const pageCopy = {
     facilityEyebrow: 'وراء اللؤلؤة',
     facilityTitle: 'العبوة بسيطة. الشغل اللي وراها مو بسيط.',
     facilityBody: 'الإنتاج، متابعة الجودة والعناية بالتفاصيل هي اللي تخلي تجربة اللؤلؤة ثابتة من حجم للثاني، ومن المعمل إلى الشخص اللي يختارها.',
-    cards: ['الإنتاج والتعبئة', 'العناية بكل تفصيل', 'صناعة من بغداد'],
+    cards: ['الإنتاج والتعبئة', 'النظافة والانضباط', 'صناعة من بغداد'],
     iraqCaption: 'عراقية بهويتها. قريبة من تفاصيل يومنا.',
     missionEyebrow: 'مهمتنا',
     missionTitle: 'نخلي الماء النظيف والمنعش خيار سهل لكل يوم.',
@@ -81,7 +81,7 @@ const pageCopy = {
     facilityEyebrow: 'لە پشت Pearl',
     facilityTitle: 'پاکەتەکە سادەیە، بەڵام کارەکەی پشتەوە سادە نییە.',
     facilityBody: 'بەرهەمهێنان، چاودێری کوالێتی و وردبینی ئەو شتانەن کە ئەزموونی Pearl یەکسان دەهێڵنەوە.',
-    cards: ['بەرهەمهێنان و پڕکردنەوە', 'وردبینی لە هەر تەفسیلەکدا', 'بەرهەمی بەغدا'],
+    cards: ['بەرهەمهێنان و پڕکردنەوە', 'پاکوخاوێنی و ڕێکخستن', 'بەرهەمی بەغدا'],
     iraqCaption: 'عێراقی بە ناسنامە. نزیک لە ژیانی ڕۆژانە.',
     missionEyebrow: 'ئەرکی ئێمە',
     missionTitle: 'ئاوی پاک و تازە ببێتە هەڵبژاردەیەکی ئاسان بۆ هەر ڕۆژێک.',
@@ -106,8 +106,8 @@ export default async function About({ params }: { params: Promise<{ locale: stri
   const c = getContent(locale);
   const p = pageCopy[locale];
   const missionIcons = [Droplets, ShieldCheck, Sparkles, MapPin];
-  const galleryIcons = [Factory, HeartHandshake, Gauge];
-  const gallery = [media.about.factory, media.about.team, media.about.operations];
+  const galleryIcons = [Factory, ShieldCheck, Gauge];
+  const gallery = [media.about.factory, media.quality.hygiene, media.about.operations];
 
   return <>
     <PageHero locale={locale} eyebrow={p.heroEyebrow} title={p.heroTitle} intro={p.heroBody}/>
