@@ -1,4 +1,4 @@
-import { media } from './media';
+import { driveImage, media } from './media';
 
 export const locales = ['ar', 'en', 'ku'] as const;
 export type Locale = (typeof locales)[number];
@@ -61,7 +61,7 @@ export const productImages: Record<ProductSize, string> = {
   '1000': media.products.front1000,
   '500': media.products.front500,
   '330': media.products.front330,
-  '200': 'https://drive.google.com/thumbnail?id=1E_0jguyCKFLmuZjSOG3m0RtnARRhn6Rb&sz=w1800',
+  '200': driveImage('1E_0jguyCKFLmuZjSOG3m0RtnARRhn6Rb', 750, 90),
 };
 
 export const pagePath: Record<PageKey, string> = {
