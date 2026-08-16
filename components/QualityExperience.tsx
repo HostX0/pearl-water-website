@@ -30,14 +30,20 @@ export function QualityExperience({ locale }: { locale: Locale }) {
   const p = getBrandCopy(locale).quality;
 
   useGSAP(() => {
-    if (!root.current) return;
+    const scope = root.current;
+    if (!scope) return;
+
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const steps = gsap.utils.toArray<HTMLElement>('[data-quality-step]', root.current);
-    const visual = root.current.querySelector<HTMLElement>('[data-quality-visual]');
-    const current = root.current.querySelector<HTMLElement>('[data-quality-current]');
-    const currentLabel = root.current.querySelector<HTMLElement>('[data-quality-current-label]');
-    const orb = root.current.querySelector<HTMLElement>('.quality-journey-orb');
-    const progress = root.current.querySelector<HTMLElement>('.quality-journey-progress span');
+    const steps = gsap.utils.toArray<HTMLElement>('[data-quality-step]', scope);
+    const visual = scope.querySelector<HTMLElement>('[data-quality-visual]');
+    const current = scope.querySelector<HTMLElement>('[data-quality-current]');
+    const currentLabel = scope.querySelector<HTMLElement>('[data-quality-current-label]');
+    const orb = scope.querySelector<HTMLElement>('.quality-journey-orb');
+    const progress = scope.querySelector<HTMLElement>('.quality-journey-progress span');
+    const journeyGrid = scope.querySelector<HTMLElement>('.quality-journey-grid');
+    const journeySection = scope.querySelector<HTMLElement>('.quality-journey-section');
+    const testingSection = scope.querySelector<HTMLElement>('.testing-section');
+    const metric = scope.querySelector<HTMLElement>('.testing-metric');
 
     if (reduced) {
       steps[0]?.classList.add('is-active');
@@ -46,12 +52,12 @@ export function QualityExperience({ locale }: { locale: Locale }) {
 
     const mm = gsap.matchMedia();
 
-    if (progress) {
+    if (progress && journeyGrid) {
       gsap.fromTo(progress, { scaleY: 0, transformOrigin: 'top center' }, {
         scaleY: 1,
         ease: 'none',
         scrollTrigger: {
-          trigger: root.current.querySelector('.quality-journey-grid'),
+          trigger: journeyGrid,
           start: 'top 68%',
           end: 'bottom 38%',
           scrub: .65,
@@ -91,9 +97,9 @@ export function QualityExperience({ locale }: { locale: Locale }) {
     });
 
     mm.add('(min-width: 901px)', () => {
-      if (!visual) return;
+      if (!visual || !journeyGrid) return;
       const pin = ScrollTrigger.create({
-        trigger: root.current?.querySelector('.quality-journey-grid'),
+        trigger: journeyGrid,
         start: 'top 112px',
         end: 'bottom bottom-=32',
         pin: visual,
@@ -103,22 +109,23 @@ export function QualityExperience({ locale }: { locale: Locale }) {
       return () => pin.kill();
     });
 
-    gsap.utils.toArray<HTMLElement>('.quality-orbit i', root.current).forEach((ring, index) => {
-      gsap.to(ring, {
-        rotate: index % 2 ? -22 : 22,
-        scale: 1.08 + index * .08,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: root.current?.querySelector('.quality-journey-section'),
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: 1.1,
-        },
+    if (journeySection) {
+      gsap.utils.toArray<HTMLElement>('.quality-orbit i', scope).forEach((ring, index) => {
+        gsap.to(ring, {
+          rotate: index % 2 ? -22 : 22,
+          scale: 1.08 + index * .08,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: journeySection,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 1.1,
+          },
+        });
       });
-    });
+    }
 
-    const metric = root.current.querySelector<HTMLElement>('.testing-metric');
-    if (metric) {
+    if (metric && testingSection) {
       gsap.from(metric, {
         scale: .72,
         opacity: 0,
@@ -129,7 +136,7 @@ export function QualityExperience({ locale }: { locale: Locale }) {
         rotate: 220,
         ease: 'none',
         scrollTrigger: {
-          trigger: root.current.querySelector('.testing-section'),
+          trigger: testingSection,
           start: 'top bottom',
           end: 'bottom top',
           scrub: 1,
@@ -138,7 +145,6 @@ export function QualityExperience({ locale }: { locale: Locale }) {
     }
 
     ScrollTrigger.refresh();
-
     return () => mm.revert();
   }, { scope: root });
 
@@ -156,9 +162,7 @@ export function QualityExperience({ locale }: { locale: Locale }) {
         <div className="quality-journey-grid">
           <aside className="quality-journey-visual" data-quality-visual aria-hidden="true">
             <div className="quality-orbit"><i/><i/><i/></div>
-            <div className="quality-journey-orb">
-              <Droplets size={32}/>
-            </div>
+            <div className="quality-journey-orb"><Droplets size={32}/></div>
             <div className="quality-current">
               <span data-quality-current>01</span>
               <strong data-quality-current-label>{p.steps[0].title}</strong>
