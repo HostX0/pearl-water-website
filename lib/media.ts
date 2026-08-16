@@ -6,7 +6,7 @@ export const media = {
     en: driveImage('1OC7oAaf306UyZALXExnlJGNjX9RpLpSt', 1400),
   },
   home: {
-    hero: driveImage('1IQwt-uBSp5BPB1AY-E7ei4Ik4Sak9KoP'),
+    hero: driveImage('1jiYaUdEno-D-aUdsTnK4URnyRa4Bjg2x'),
     carton: driveImage('1X6T5UP9FuxZP3KwFL_wamSr5fcl6cf76'),
     ripple: driveImage('1fLaoyhad38gjFsKbvpRQApj2TmXLqCll'),
     purity: driveImage('1gi8HKhcBgPnSzzOhXsPQdZOHGw-UO0wS'),
