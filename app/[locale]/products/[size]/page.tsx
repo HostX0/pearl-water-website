@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ArrowLeft, ArrowRight, CheckCircle2, Phone } from 'lucide-react';
+import { ArrowLeft, ArrowRight, CheckCircle2, Phone, Droplets, Sparkles, ShieldCheck } from 'lucide-react';
 import { notFound } from 'next/navigation';
 import { getContent } from '@/lib/content';
 import {
@@ -29,19 +29,22 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 const ui = {
   en: {
-    back: 'All products', overview: 'Product overview', format: 'Format', category: 'Category', categoryValue: 'Purified bottled water',
-    ideal: 'Ideal for', why: 'Why Pearl', points: ['Practical everyday format', 'Consistent Pearl brand experience', 'Clear, familiar presentation'],
-    cta: 'Ask about this format', other: 'Explore other Pearl formats', made: 'Proudly Iraqi',
+    back: 'All products', overview: 'Made for this moment', format: 'Format', category: 'What it is', categoryValue: 'Pearl purified water',
+    ideal: 'Best for', why: 'The Pearl experience', points: ['Clean, refreshing purified water', 'A practical format for its intended moment', 'The familiar Pearl identity in every size'],
+    cta: 'Ask about this format', other: 'Find the other Pearl format that fits your day', made: 'Proudly Iraqi',
+    detailEyebrow: 'Pearl format', detailBody: 'One familiar Pearl experience, shaped around a different part of the day.',
   },
   ar: {
-    back: 'كل المنتجات', overview: 'نظرة على المنتج', format: 'الحجم', category: 'الفئة', categoryValue: 'مياه شرب معبأة ومنقاة',
-    ideal: 'مناسب لـ', why: 'لماذا اللؤلؤة', points: ['حجم عملي للاستخدام اليومي', 'تجربة ثابتة لهوية اللؤلؤة', 'تقديم واضح ومألوف للمنتج'],
-    cta: 'استفسر عن هذا الحجم', other: 'اكتشف أحجام اللؤلؤة الأخرى', made: 'بكل فخر عراقية',
+    back: 'كل المنتجات', overview: 'معمول لهاللحظة', format: 'الحجم', category: 'المنتج', categoryValue: 'مياه اللؤلؤة المنقاة',
+    ideal: 'أنسب استخدام', why: 'تجربة اللؤلؤة', points: ['مياه منقاة بطعم منعش وواضح', 'حجم عملي للموقف اللي معمول إله', 'نفس هوية اللؤلؤة المألوفة بكل حجم'],
+    cta: 'استفسر عن هذا الحجم', other: 'شوف باقي أحجام اللؤلؤة واختار الأنسب ليومك', made: 'بكل فخر عراقية',
+    detailEyebrow: 'أحجام اللؤلؤة', detailBody: 'نفس تجربة اللؤلؤة المألوفة، بحجم معمول لجزء مختلف من يومك.',
   },
   ku: {
-    back: 'هەموو بەرهەمەکان', overview: 'پوختەی بەرهەم', format: 'قەبارە', category: 'جۆر', categoryValue: 'ئاوی خواردنەوەی پاککراو و پێچراو',
-    ideal: 'گونجاوە بۆ', why: 'بۆچی Pearl', points: ['قەبارەیەکی پراکتیکی بۆ ڕۆژانە', 'ئەزموونێکی یەکگرتووی براندی Pearl', 'پێشکەشکردنێکی پاک و ئاشنا'],
-    cta: 'پرسیار لەسەر ئەم قەبارەیە', other: 'قەبارەکانی تری Pearl ببینە', made: 'بە شانازییەوە عێراقی',
+    back: 'هەموو بەرهەمەکان', overview: 'بۆ ئەم ساتە دروستکراوە', format: 'قەبارە', category: 'بەرهەم', categoryValue: 'ئاوی پاککراوی Pearl',
+    ideal: 'گونجاوترین بەکارهێنان', why: 'ئەزموونی Pearl', points: ['ئاوی پاککراو و تازە', 'قەبارەیەکی پراکتیکی بۆ ساتەکەی خۆی', 'هەمان ناسنامەی ئاشنای Pearl لە هەر قەبارەیەکدا'],
+    cta: 'پرسیار لەسەر ئەم قەبارەیە', other: 'قەبارەکانی تری Pearl بۆ ڕۆژەکەت ببینە', made: 'بە شانازییەوە عێراقی',
+    detailEyebrow: 'قەبارەکانی Pearl', detailBody: 'هەمان ئەزموونی ئاشنای Pearl، بە قەبارەیەک بۆ بەشێکی جیاواز لە ڕۆژەکەت.',
   },
 } as const;
 
@@ -56,6 +59,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
   const copy = ui[locale];
   const Arrow = locale === 'en' ? ArrowRight : ArrowLeft;
   const related = productSizes.filter((candidate) => candidate !== size);
+  const reasons = [Droplets, Sparkles, ShieldCheck];
 
   const productJsonLd = {
     '@context': 'https://schema.org',
@@ -89,13 +93,13 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
             <p>{item.body}</p>
             <div className="product-detail-actions">
               <Link className="btn btn-primary" href={localizedPath(locale,'contact')}><Phone size={17}/>{copy.cta}</Link>
-              <a className="btn btn-secondary" href={site.map} target="_blank" rel="noreferrer">{c.common.directions}</a>
+              <Link className="btn btn-secondary" href={localizedPath(locale,'products')}>{copy.back}</Link>
             </div>
           </div>
-          <div className="product-detail-visual" data-parallax="8">
+          <div className={`product-detail-visual product-detail-${size}`} data-parallax="8">
             <div className="product-detail-pearl"/>
             <div className="product-detail-halo"/>
-            <img src={productImages[size]} alt={`Pearl purified water ${item.size}`} />
+            <div className="product-detail-image-shell"><img src={productImages[size]} alt={`Pearl purified water ${item.size}`} loading="eager" decoding="async" referrerPolicy="no-referrer"/></div>
             <span className="product-detail-size">{item.size}</span>
           </div>
         </div>
@@ -104,7 +108,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
 
     <section className="section product-overview-section">
       <div className="site-shell product-overview-grid">
-        <div data-reveal><span className="eyebrow">{copy.overview}</span><h2>{item.name}</h2><p className="lead">{item.body}</p></div>
+        <div data-reveal><span className="eyebrow">{copy.overview}</span><h2>{item.name}</h2><p className="lead">{item.body}</p><p className="product-overview-support">{copy.detailBody}</p></div>
         <div className="product-facts" data-reveal>
           <div><span>{copy.format}</span><strong>{item.size}</strong></div>
           <div><span>{copy.category}</span><strong>{copy.categoryValue}</strong></div>
@@ -115,8 +119,8 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
 
     <section className="section section-ice">
       <div className="site-shell product-why-grid">
-        <div data-reveal><span className="eyebrow">Pearl</span><h2>{copy.why}</h2></div>
-        <div className="product-checks">{copy.points.map((point) => <div key={point} data-reveal><CheckCircle2/><span>{point}</span></div>)}</div>
+        <div data-reveal><span className="eyebrow">{copy.detailEyebrow}</span><h2>{copy.why}</h2></div>
+        <div className="product-checks">{copy.points.map((point, index) => { const Icon = reasons[index]; return <div key={point} data-reveal><span className="product-check-icon"><Icon size={20}/></span><span>{point}</span></div>; })}</div>
       </div>
     </section>
 
@@ -126,9 +130,9 @@ export default async function ProductDetail({ params }: { params: Promise<{ loca
         <div className="related-product-grid">
           {related.map((relatedSize) => {
             const product = c.products.items[relatedSize];
-            return <Link className="related-product-card" href={localizedProductPath(locale, relatedSize)} key={relatedSize} data-reveal>
+            return <Link className={`related-product-card related-product-${relatedSize}`} href={localizedProductPath(locale, relatedSize)} key={relatedSize} data-reveal>
               <div><span>{product.use}</span><h3>{product.size}</h3><p>{product.name}</p></div>
-              <img src={productImages[relatedSize]} alt={`Pearl ${product.size}`} />
+              <div className="related-product-image-shell"><img src={productImages[relatedSize]} alt={`Pearl ${product.size}`} loading="lazy" decoding="async" referrerPolicy="no-referrer"/></div>
             </Link>;
           })}
         </div>
