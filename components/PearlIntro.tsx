@@ -63,7 +63,7 @@ export function PearlIntro({ locale }: { locale: Locale }) {
         <i className="intro-ripple"/><i className="intro-ripple"/><i className="intro-ripple"/>
         <span className="intro-wave"/>
       </div>
-      <div className="intro-logo"><BrandLogo locale={locale}/></div>
+      <div className="intro-logo"><BrandLogo locale={locale} priority sizes="(max-width: 680px) 195px, 245px"/></div>
     </div>
   </div>;
 }

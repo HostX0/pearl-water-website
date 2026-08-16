@@ -1,0 +1,34 @@
+/* Pearl system layer — font delivery, accessibility and non-visual engineering fixes. */
+.font-en{font-family:var(--font-montserrat),system-ui,sans-serif!important}
+.font-ar{font-family:var(--font-tajawal),system-ui,sans-serif!important}
+.font-ku{font-family:var(--font-noto-arabic),system-ui,sans-serif!important}
+
+.story-photo figcaption,
+.about-gallery figcaption b,
+.product-stage-label span,
+.product-step-top>span,
+.quality-stage-inline span,
+.quality-proof-card strong,
+.quality-current span,
+.quality-step-top>b,
+.standard-card-top>b,
+.testing-metric strong,
+.mobile-menu:after{
+  font-family:var(--font-montserrat),system-ui,sans-serif!important;
+}
+.product-showcase-step h3{
+  font-family:var(--font-montserrat),var(--font-tajawal),system-ui,sans-serif!important;
+}
+
+/* Same Pearl palette, stronger AA contrast for inactive language choices. */
+.language-switcher a:not(.active){color:#536b7c!important}
+
+/* Increase interactive geometry without moving the visible desktop navigation. */
+.desktop-nav a{padding-block:10px!important;margin-block:-10px!important}
+.desktop-nav a.active:after{bottom:-2px!important}
+.footer-nav a{min-height:28px;display:inline-flex;align-items:center}
+
+@media(max-width:900px){
+  .mobile-menu-links a,
+  .mobile-language-switcher a{min-height:44px!important}
+}

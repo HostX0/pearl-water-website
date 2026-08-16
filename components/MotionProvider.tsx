@@ -239,10 +239,12 @@ export function MotionProvider({ children }: { children: React.ReactNode }) {
         });
       }
 
-      ScrollTrigger.refresh();
     }, root);
 
+    const refreshFrame = window.requestAnimationFrame(() => ScrollTrigger.refresh());
+
     return () => {
+      window.cancelAnimationFrame(refreshFrame);
       mm.revert();
       ctx.revert();
     };

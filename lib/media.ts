@@ -1,8 +1,33 @@
 const optimizeImage = (src: string, width: number, quality = 90) =>
   `/_next/image?url=${encodeURIComponent(src)}&w=${width}&q=${quality}`;
 
+export const driveSource = (id: string, width = 2400) =>
+  `https://drive.google.com/thumbnail?id=${id}&sz=w${width}`;
+
 const driveImage = (id: string, width = 1200, quality = 90) =>
-  optimizeImage(`https://drive.google.com/thumbnail?id=${id}&sz=w${width}`, width, quality);
+  optimizeImage(driveSource(id, width), width, quality);
+
+export const mediaSources = {
+  logos: {
+    ar: driveSource('1h1CF6l-ZpZSII7upncjUIC01TAhn4-L_', 1400),
+    en: driveSource('1OC7oAaf306UyZALXExnlJGNjX9RpLpSt', 1400),
+  },
+  home: {
+    hero: driveSource('1jiYaUdEno-D-aUdsTnK4URnyRa4Bjg2x', 1600),
+    purity: driveSource('1gi8HKhcBgPnSzzOhXsPQdZOHGw-UO0wS', 1600),
+    standards: driveSource('1KggyALGnwz_yyI1at8LB61ymMUhv0hGQ', 1600),
+    lifestyleFamily: driveSource('1olEJdbFM2NPyFkmXP98ELvLENJVUHrT9', 1600),
+    lifestyleActive: driveSource('1TCcrCJe7eD6xB0dEkuK0FbmD0KfqHRD3', 1600),
+    distribution: driveSource('1d90nFrBPJttVHQZk23qDkbeN0UPmU-aM', 1920),
+    iraq: driveSource('1BNeXshDqQhU1tMVU7sHm2ISghSiDLZeh', 1600),
+  },
+  products: {
+    front1000: driveSource('1Q0dryDXEK10QCE9nxlEj5wlgnnVKkT9_', 1000),
+    front500: driveSource('1bCX49Fz8pW0jCE2l5Dr1YiyXprMzhZI8', 1000),
+    front330: driveSource('1HTPbe3e55cVuamJOqxy8IGTWjdd9Hdab', 1000),
+    front200: driveSource('1E_0jguyCKFLmuZjSOG3m0RtnARRhn6Rb', 1000),
+  },
+} as const;
 
 export const media = {
   logos: {

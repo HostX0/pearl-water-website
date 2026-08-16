@@ -1,10 +1,10 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowLeft, ArrowRight, Droplets, ShieldCheck, Sparkles, MapPin, Phone, Factory, Truck, HeartHandshake } from 'lucide-react';
-import { BrandLogo } from './BrandLogo';
 import { getContent } from '@/lib/content';
 import { getBrandCopy } from '@/lib/brand-copy';
-import { media } from '@/lib/media';
-import { localizedPath, localizedProductPath, productImages, productSizes, site, type Locale } from '@/lib/site';
+import { mediaSources } from '@/lib/media';
+import { localizedPath, localizedProductPath, productSizes, site, type Locale } from '@/lib/site';
 
 const homeVoice = {
   en: {
@@ -87,6 +87,13 @@ const homeVoice = {
   },
 } as const;
 
+const homeProductSources = {
+  '1000': mediaSources.products.front1000,
+  '500': mediaSources.products.front500,
+  '330': mediaSources.products.front330,
+  '200': mediaSources.products.front200,
+} as const;
+
 export function HomePage({ locale }: { locale: Locale }) {
   const c = getContent(locale);
   const p = getBrandCopy(locale);
@@ -111,9 +118,7 @@ export function HomePage({ locale }: { locale: Locale }) {
           <div className="hero-proof"><span>{c.common.madeInIraq}</span><b>•</b><span>{c.common.sizes}</span></div>
         </div>
         <div className="hero-visual hero-visual-photo" data-parallax="7" data-asset-slot="IMG-HOME-HERO-01">
-          <img className="hero-scene-image" src={media.home.hero} alt={x.visualAlt} loading="eager" decoding="async" referrerPolicy="no-referrer"/>
-          <div className="hero-logo-card"><BrandLogo locale={locale}/></div>
-          <div className="hero-size"><strong>1000</strong><span>ml</span></div>
+          <Image className="hero-scene-image" src={mediaSources.home.hero} alt={x.visualAlt} width={1122} height={1402} sizes="(max-width: 900px) 92vw, 46vw" quality={90} priority fetchPriority="high" referrerPolicy="no-referrer"/>
         </div>
       </div>
     </section>
@@ -125,8 +130,8 @@ export function HomePage({ locale }: { locale: Locale }) {
           {x.pillars.map((pillar, index) => { const Icon = icons[index]; return <article className="pillar-card" key={pillar[0]} data-reveal><div className="icon-box"><Icon size={23}/></div><span className="card-index">0{index + 1}</span><h3>{pillar[0]}</h3><p>{pillar[1]}</p></article>; })}
         </div>
         <div className="home-proof-feature" data-reveal>
-          <div className="home-proof-media" data-parallax="4"><img src={media.home.purity} alt={x.visualAlt} loading="lazy" decoding="async" referrerPolicy="no-referrer"/></div>
-          <div className="home-proof-copy"><span className="eyebrow">{x.proofEyebrow}</span><h2>{x.proofTitle}</h2><p>{x.proofBody}</p><Link className="text-link" href={localizedPath(locale,'quality')}>{c.common.learnMore}<Arrow size={17}/></Link></div>
+          <div className="home-proof-media" data-parallax="4"><Image src={mediaSources.home.purity} alt={x.visualAlt} width={1200} height={900} sizes="(max-width: 900px) 92vw, 48vw" quality={88} referrerPolicy="no-referrer"/></div>
+          <div className="home-proof-copy"><span className="eyebrow">{x.proofEyebrow}</span><h2>{x.proofTitle}</h2><p>{x.proofBody}</p><Link className="text-link" href={localizedPath(locale,'quality')} aria-label={c.common.learnMore + ': ' + c.nav.quality}>{c.common.learnMore}<Arrow size={17}/></Link></div>
         </div>
       </div>
     </section>
@@ -138,22 +143,22 @@ export function HomePage({ locale }: { locale: Locale }) {
           <Link href={localizedPath(locale, 'products')} className="text-link light">{c.common.viewProducts}<Arrow size={17}/></Link>
         </div>
         <div className="product-story-list">
-          {productSizes.map((key, index) => { const product = c.products.items[key]; return <Link href={localizedProductPath(locale, key)} key={key} className="story-product-card" aria-label={`${c.common.learnMore}: ${product.size}`}><div className="story-product-copy"><span>0{index + 1}</span><small>{product.use}</small><h3>{product.size}</h3><p>{product.body}</p><span className="story-product-link">{c.common.learnMore}<Arrow size={15}/></span></div><div className={`story-product-visual story-product-${key}`}><div className="product-halo"/><div className="story-product-image-shell"><img src={productImages[key]} alt={`Pearl ${product.size}`} loading="lazy" decoding="async" referrerPolicy="no-referrer"/></div></div></Link>; })}
+          {productSizes.map((key, index) => { const product = c.products.items[key]; return <Link href={localizedProductPath(locale, key)} key={key} className="story-product-card" aria-label={`${c.common.learnMore}: ${product.size}`}><div className="story-product-copy"><span>0{index + 1}</span><small>{product.use}</small><h3>{product.size}</h3><p>{product.body}</p><span className="story-product-link">{c.common.learnMore}<Arrow size={15}/></span></div><div className={`story-product-visual story-product-${key}`}><div className="product-halo"/><div className="story-product-image-shell"><Image src={homeProductSources[key]} alt={'Pearl ' + product.size} width={750} height={750} sizes="(max-width: 680px) 62vw, (max-width: 900px) 34vw, 190px" quality={88} referrerPolicy="no-referrer"/></div></div></Link>; })}
         </div>
       </div>
     </section>
 
     <section className="section story-home">
       <div className="site-shell story-home-grid">
-        <figure className="story-photo" data-reveal data-parallax="4"><img src={media.home.iraq} alt={storyLocation} loading="lazy" decoding="async" referrerPolicy="no-referrer"/><figcaption>{storyLocation}</figcaption></figure>
-        <div data-reveal><span className="eyebrow">{c.home.storyKicker}</span><h2>{p.home.storyTitle}</h2><p className="lead">{p.home.storyBody}</p><blockquote>{c.home.storyQuote}</blockquote><Link href={localizedPath(locale, 'about')} className="text-link">{c.common.learnMore}<Arrow size={17}/></Link></div>
+        <figure className="story-photo" data-reveal data-parallax="4"><Image src={mediaSources.home.iraq} alt={storyLocation} width={1200} height={900} sizes="(max-width: 900px) 92vw, 50vw" quality={88} referrerPolicy="no-referrer"/><figcaption>{storyLocation}</figcaption></figure>
+        <div data-reveal><span className="eyebrow">{c.home.storyKicker}</span><h2>{p.home.storyTitle}</h2><p className="lead">{p.home.storyBody}</p><blockquote>{c.home.storyQuote}</blockquote><Link href={localizedPath(locale, 'about')} className="text-link" aria-label={c.common.learnMore + ': ' + c.nav.about}>{c.common.learnMore}<Arrow size={17}/></Link></div>
       </div>
     </section>
 
     <section className="quality-home quality-home-premium">
       <div className="site-shell quality-home-grid quality-home-grid-media">
-        <div className="quality-home-copy" data-reveal><span className="eyebrow eyebrow-light">{c.home.qualityKicker}</span><h2>{p.home.qualityTitle.split('\n').map((line) => <span key={line}>{line}</span>)}</h2><p>{p.home.qualityBody}</p><Link className="btn btn-white" href={localizedPath(locale, 'quality')}>{c.common.learnMore}<Arrow size={18}/></Link></div>
-        <div className="quality-home-image" data-reveal data-parallax="4"><img src={media.home.standards} alt={x.proofTitle} loading="lazy" decoding="async" referrerPolicy="no-referrer"/></div>
+        <div className="quality-home-copy" data-reveal><span className="eyebrow eyebrow-light">{c.home.qualityKicker}</span><h2>{p.home.qualityTitle.split('\n').map((line) => <span key={line}>{line}</span>)}</h2><p>{p.home.qualityBody}</p><Link className="btn btn-white" href={localizedPath(locale, 'quality')} aria-label={c.common.learnMore + ': ' + c.nav.quality}>{c.common.learnMore}<Arrow size={18}/></Link></div>
+        <div className="quality-home-image" data-reveal data-parallax="4"><Image src={mediaSources.home.standards} alt={x.proofTitle} width={1200} height={900} sizes="(max-width: 900px) 92vw, 30vw" quality={88} referrerPolicy="no-referrer"/></div>
         <div className="quality-proof-grid">{p.home.qualityStats.map((stat, index) => <article className="quality-proof-card" key={stat.value} data-reveal><span>0{index + 1}</span><strong dir="ltr">{stat.value}</strong><p>{stat.label}</p></article>)}</div>
       </div>
     </section>
@@ -161,12 +166,12 @@ export function HomePage({ locale }: { locale: Locale }) {
     <section className="section lifestyle-section">
       <div className="site-shell">
         <div className="section-head split" data-reveal><div><span className="eyebrow">{x.lifeEyebrow}</span><h2>{x.lifeTitle}</h2></div><p>{x.lifeBody}</p></div>
-        <div className="lifestyle-grid"><figure data-reveal data-parallax="3"><img src={media.home.lifestyleFamily} alt={x.family} loading="lazy" decoding="async" referrerPolicy="no-referrer"/><figcaption><HeartHandshake size={18}/><span>{x.family}</span></figcaption></figure><figure data-reveal data-parallax="5"><img src={media.home.lifestyleActive} alt={x.active} loading="lazy" decoding="async" referrerPolicy="no-referrer"/><figcaption><Sparkles size={18}/><span>{x.active}</span></figcaption></figure></div>
+        <div className="lifestyle-grid"><figure data-reveal data-parallax="3"><Image src={mediaSources.home.lifestyleFamily} alt={x.family} width={1200} height={1500} sizes="(max-width: 900px) 92vw, 52vw" quality={88} referrerPolicy="no-referrer"/><figcaption><HeartHandshake size={18}/><span>{x.family}</span></figcaption></figure><figure data-reveal data-parallax="5"><Image src={mediaSources.home.lifestyleActive} alt={x.active} width={1200} height={1500} sizes="(max-width: 900px) 92vw, 38vw" quality={88} referrerPolicy="no-referrer"/><figcaption><Sparkles size={18}/><span>{x.active}</span></figcaption></figure></div>
       </div>
     </section>
 
     <section className="section distribution-home">
-      <div className="site-shell distribution-home-card" data-reveal><div className="distribution-home-media" data-parallax="5"><img src={media.home.distribution} alt={x.distributionTitle} loading="lazy" decoding="async" referrerPolicy="no-referrer"/></div><div className="distribution-home-copy"><span className="eyebrow">{x.distributionEyebrow}</span><h2>{x.distributionTitle}</h2><p>{x.distributionBody}</p><Link className="btn btn-primary" href={localizedPath(locale,'contact')}><Truck size={18}/>{x.distributionCta}</Link></div><div className="distribution-home-badge" aria-hidden="true"><Factory size={22}/><span>Pearl · Baghdad</span></div></div>
+      <div className="site-shell distribution-home-card" data-reveal><div className="distribution-home-media" data-parallax="5"><Image src={mediaSources.home.distribution} alt={x.distributionTitle} width={1600} height={900} sizes="92vw" quality={88} referrerPolicy="no-referrer"/></div><div className="distribution-home-copy"><span className="eyebrow">{x.distributionEyebrow}</span><h2>{x.distributionTitle}</h2><p>{x.distributionBody}</p><Link className="btn btn-primary" href={localizedPath(locale,'contact')}><Truck size={18}/>{x.distributionCta}</Link></div><div className="distribution-home-badge" aria-hidden="true"><Factory size={22}/><span>Pearl · Baghdad</span></div></div>
     </section>
 
     <section className="section contact-preview">
