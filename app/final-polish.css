@@ -1,0 +1,187 @@
+/* Pearl final polish — header, contact, product details, device-specific behavior */
+
+/* Header: preserve premium desktop composition and create a deliberately different mobile control bar */
+.site-header{padding-top:clamp(14px,1.8vw,24px)!important}
+.header-shell{min-height:70px!important;padding:10px 14px!important;border-radius:18px!important;gap:20px!important}
+.header-brand{min-width:132px!important}
+.header-brand .brand-logo{max-width:132px!important;max-height:48px!important}
+.desktop-nav{gap:clamp(18px,2vw,34px)!important}
+.desktop-nav a{font-size:13px!important;font-weight:600!important}
+.header-actions{gap:10px!important}
+.language-switcher{padding:4px!important;gap:2px!important}
+.language-switcher a{width:32px!important;height:32px!important;font-size:9px!important}
+.header-call{min-height:42px!important;padding-inline:15px!important;border-radius:12px!important;font-size:12px!important}
+
+/* Product detail: every source image gets the same Pearl-owned stage */
+.product-detail-hero{padding-top:clamp(142px,14vw,190px)!important;padding-bottom:clamp(70px,7vw,104px)!important;overflow:hidden!important}
+.product-detail-grid{gap:clamp(42px,6vw,96px)!important;align-items:center!important}
+.product-detail-copy h1{font-size:clamp(68px,7.5vw,112px)!important;line-height:.9!important;letter-spacing:-.05em!important}
+.product-detail-copy h2{font-size:clamp(26px,2.4vw,36px)!important;margin-top:18px!important}
+.product-detail-copy>p{font-size:clamp(16px,1.25vw,19px)!important;line-height:1.9!important;max-width:590px!important}
+.product-detail-visual{min-height:clamp(560px,65vh,710px)!important;border-radius:30px!important;background:radial-gradient(circle at 50% 42%,#fff 0%,#f8fbfc 53%,#e2f2f8 100%)!important;border:1px solid rgba(10,78,147,.08)!important;box-shadow:0 34px 90px rgba(7,58,112,.12)!important;padding:34px!important;display:grid!important;place-items:center!important;overflow:hidden!important}
+.product-detail-image-shell{position:relative;z-index:4;width:min(84%,510px);height:min(82%,540px);background:#fff;border-radius:24px;display:grid;place-items:center;padding:26px;box-shadow:0 24px 64px rgba(7,58,112,.12),inset 0 0 0 1px rgba(10,78,147,.05)}
+.product-detail-image-shell img{width:88%!important;height:88%!important;object-fit:contain!important;display:block!important;filter:drop-shadow(0 24px 30px rgba(7,58,112,.13))!important}
+.product-detail-200 .product-detail-image-shell img{width:68%!important;height:68%!important}
+.product-detail-size{z-index:5!important;bottom:28px!important;inset-inline-start:30px!important;font-size:13px!important;background:rgba(255,255,255,.82)!important;backdrop-filter:blur(12px);padding:8px 12px!important;border-radius:10px!important;color:#073a70!important}
+.product-detail-pearl{z-index:2!important;width:104px!important;height:104px!important;top:28px!important;inset-inline-end:28px!important}
+.product-detail-halo{z-index:1!important;width:72%!important;height:72%!important}
+.product-overview-grid{gap:clamp(42px,6vw,94px)!important;align-items:start!important}
+.product-overview-grid h2{font-size:clamp(42px,4.8vw,68px)!important;line-height:1.1!important}
+[dir=rtl] .product-overview-grid h2{line-height:1.2!important}
+.product-overview-support{font-size:15px!important;line-height:1.85!important;color:#6c8291!important;max-width:620px!important;margin-top:18px!important}
+.product-facts{border-radius:22px!important;overflow:hidden!important;box-shadow:0 24px 70px rgba(7,58,112,.08)!important}
+.product-facts>div{padding:24px 26px!important}
+.product-facts span{font-size:12px!important;color:#6b8596!important}
+.product-facts strong{font-size:clamp(18px,1.8vw,25px)!important}
+.product-why-grid{gap:clamp(42px,6vw,90px)!important}
+.product-why-grid h2{font-size:clamp(40px,4.6vw,64px)!important}
+.product-checks>div{min-height:82px!important;padding:17px 20px!important;gap:14px!important}
+.product-check-icon{width:44px;height:44px;border-radius:14px;background:#e6f4fb;color:#0a4e93;display:grid;place-items:center;flex:0 0 auto}
+.related-product-grid{gap:18px!important}
+.related-product-card{grid-template-columns:.72fr 1.28fr!important;min-height:310px!important;padding:20px!important;border-radius:22px!important;overflow:hidden!important}
+.related-product-card>div:first-child{padding:14px!important;align-self:center}
+.related-product-card h3{font-size:clamp(34px,3.4vw,48px)!important}
+.related-product-image-shell{height:270px;background:#fff;border-radius:18px;display:grid;place-items:center;padding:18px;box-shadow:inset 0 0 0 1px rgba(10,78,147,.05)}
+.related-product-image-shell img{width:84%!important;height:84%!important;object-fit:contain!important;filter:drop-shadow(0 17px 22px rgba(7,58,112,.11))}
+.related-product-200 .related-product-image-shell img{width:67%!important;height:67%!important}
+
+/* Contact: actions should scan in seconds */
+.contact-hero-photo{min-height:clamp(420px,52vw,620px)!important;border-radius:28px!important;overflow:hidden!important}
+.contact-hero-photo img{object-position:center 46%!important}
+.contact-hero-photo>div{padding:clamp(18px,2vw,28px)!important;inset:22px!important;border-radius:16px!important;max-width:520px!important}
+.contact-directory-grid{grid-template-columns:.72fr 1.28fr!important;gap:clamp(42px,6vw,90px)!important;align-items:start!important}
+.contact-directory-copy{position:sticky;top:132px}
+.contact-directory-copy h2{font-size:clamp(42px,4.8vw,68px)!important;line-height:1.1!important;margin-bottom:20px!important}
+[dir=rtl] .contact-directory-copy h2{line-height:1.22!important}
+.contact-directory-copy p{font-size:clamp(16px,1.2vw,19px)!important;line-height:1.9!important;max-width:540px!important}
+.phone-directory{grid-template-columns:1fr 1fr!important;gap:14px!important}
+.phone-line-card{min-height:200px!important;padding:24px!important;border-radius:20px!important;transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease!important}
+.phone-line-card:hover{transform:translateY(-4px)!important;box-shadow:0 22px 60px rgba(7,58,112,.12)!important;border-color:rgba(43,183,229,.45)!important}
+.phone-line-icon{width:48px!important;height:48px!important;border-radius:15px!important}
+.phone-line-card strong{font-size:clamp(20px,2vw,27px)!important;margin-top:auto!important}
+.phone-line-card small{font-size:12px!important;color:#0a4e93!important;font-weight:700!important}
+.service-line{grid-column:1/-1!important;min-height:150px!important;display:grid!important;grid-template-columns:auto auto 1fr auto;align-items:center!important;gap:18px!important}
+.service-line .phone-line-index{position:static!important}
+.service-line .phone-line-label{align-self:center!important}
+.service-line strong{margin:0!important}
+.service-line small{justify-self:end!important}
+.location-card{grid-template-columns:.72fr 1.28fr!important;gap:0!important;border-radius:28px!important;overflow:hidden!important;box-shadow:0 30px 85px rgba(7,58,112,.11)!important}
+.location-copy{padding:clamp(36px,4.5vw,66px)!important}
+.location-copy h2{font-size:clamp(42px,4.6vw,64px)!important}
+.location-note{font-size:15px!important;line-height:1.8!important}
+.location-visual{min-height:540px!important}
+.location-visual img{object-position:center!important}
+.contact-business-card{grid-template-columns:1.08fr .92fr!important;border-radius:28px!important;overflow:hidden!important}
+.contact-business-card>img{min-height:520px!important;object-position:center!important}
+.contact-business-card>div{padding:clamp(38px,4.6vw,66px)!important;align-self:center}
+.contact-business-card h2{font-size:clamp(40px,4.5vw,62px)!important;line-height:1.1!important}
+[dir=rtl] .contact-business-card h2{line-height:1.22!important}
+.contact-business-card p{font-size:clamp(16px,1.15vw,18px)!important;line-height:1.9!important}
+
+/* About: visual hierarchy tuned after screenshot review */
+.about-brand-card>img{object-position:center!important}
+.about-brand-card>div{padding:clamp(24px,3.4vw,48px)!important}
+.about-facility-section .section-head{margin-bottom:clamp(40px,5vw,68px)!important}
+.about-gallery figure figcaption{min-height:54px!important;display:flex!important;align-items:center!important;gap:8px!important;padding:13px 15px!important}
+.about-gallery figure figcaption b{margin-inline-start:auto!important;font-size:10px!important}
+.value-grid article{padding:clamp(24px,2.5vw,34px)!important;min-height:230px!important}
+.value-grid h3{font-size:clamp(24px,2.1vw,31px)!important}
+.value-grid p{font-size:15px!important;line-height:1.85!important}
+
+/* Large desktop */
+@media(min-width:1500px){
+  .header-shell{min-height:76px!important;padding:12px 18px!important}
+  .header-brand .brand-logo{max-width:145px!important}
+  .product-detail-grid{grid-template-columns:.9fr 1.1fr!important}
+  .contact-directory-grid{grid-template-columns:.7fr 1.3fr!important}
+}
+
+/* Mid desktop / laptop */
+@media(max-width:1180px){
+  .desktop-nav{gap:16px!important}
+  .desktop-nav a{font-size:12px!important}
+  .header-call span{display:none!important}
+  .header-call{width:42px!important;padding:0!important;justify-content:center!important}
+  .product-detail-grid{grid-template-columns:.9fr 1.1fr!important}
+  .product-detail-visual{min-height:550px!important}
+  .contact-directory-grid{grid-template-columns:.85fr 1.15fr!important}
+  .phone-directory{grid-template-columns:1fr!important}
+  .service-line{grid-column:auto!important;display:flex!important;flex-direction:column!important;align-items:flex-start!important;min-height:190px!important}
+  .service-line strong{margin-top:auto!important}
+  .service-line small{justify-self:auto!important}
+  .location-card,.contact-business-card{grid-template-columns:1fr 1fr!important}
+}
+
+/* Tablet — nav becomes touch-first and layouts stop pretending to be desktop */
+@media(max-width:900px){
+  .site-header{padding-top:10px!important}
+  .header-shell{min-height:62px!important;border-radius:16px!important;padding:8px 10px!important}
+  .desktop-nav{display:none!important}
+  .header-brand{min-width:110px!important}
+  .header-brand .brand-logo{max-width:112px!important;max-height:42px!important}
+  .header-actions{margin-inline-start:auto!important}
+  .language-switcher a{width:30px!important;height:30px!important}
+  .header-call{display:flex!important}
+  .menu-button{display:grid!important;place-items:center!important;width:42px!important;height:42px!important;border-radius:12px!important}
+  .mobile-menu{margin-top:8px!important;border-radius:16px!important;padding:12px!important;display:grid!important;grid-template-columns:1fr 1fr;gap:7px!important;background:rgba(247,248,250,.96)!important;backdrop-filter:blur(18px)!important;box-shadow:0 20px 55px rgba(7,58,112,.12)!important}
+  .mobile-menu a{min-height:46px;display:flex;align-items:center;padding:0 14px;border-radius:11px;color:#073a70;text-decoration:none;font-weight:700;font-size:13px;background:#fff}
+  .product-detail-grid{grid-template-columns:1fr!important}
+  .product-detail-copy{max-width:680px!important}
+  .product-detail-visual{min-height:540px!important;order:-1!important}
+  .product-overview-grid,.product-why-grid{grid-template-columns:1fr!important}
+  .related-product-grid{grid-template-columns:1fr 1fr!important}
+  .related-product-card{grid-template-columns:1fr!important;min-height:0!important}
+  .related-product-image-shell{order:-1;height:260px}
+  .contact-directory-grid{grid-template-columns:1fr!important}
+  .contact-directory-copy{position:static!important}
+  .phone-directory{grid-template-columns:1fr 1fr!important}
+  .service-line{grid-column:1/-1!important;display:grid!important;grid-template-columns:auto auto 1fr auto;min-height:140px!important;align-items:center!important}
+  .service-line strong{margin:0!important}
+  .location-card,.contact-business-card{grid-template-columns:1fr!important}
+  .location-visual{min-height:440px!important;order:-1}
+  .contact-business-card>img{min-height:420px!important}
+}
+
+/* Mobile */
+@media(max-width:680px){
+  .header-shell{gap:8px!important}
+  .header-brand{min-width:auto!important;max-width:100px!important}
+  .header-brand .brand-logo{max-width:96px!important}
+  .language-switcher{display:none!important}
+  .header-call{width:40px!important;height:40px!important}
+  .menu-button{width:40px!important;height:40px!important}
+  .mobile-menu{grid-template-columns:1fr!important}
+  .mobile-menu:after{content:'AR · EN · KU';font:700 10px/1 Montserrat,sans-serif;color:#6e8494;padding:10px 14px}
+  .product-detail-hero{padding-top:112px!important}
+  .breadcrumbs{font-size:10px!important;gap:7px!important;margin-bottom:28px!important}
+  .product-detail-visual{min-height:430px!important;border-radius:22px!important;padding:18px!important}
+  .product-detail-image-shell{width:92%;height:350px;border-radius:18px;padding:16px}
+  .product-detail-pearl{width:72px!important;height:72px!important;top:18px!important;inset-inline-end:18px!important}
+  .product-detail-copy h1{font-size:clamp(54px,16vw,74px)!important}
+  .product-detail-copy h2{font-size:25px!important}
+  .product-detail-actions{display:grid!important;grid-template-columns:1fr!important}
+  .product-detail-actions .btn{justify-content:center!important}
+  .product-facts>div{padding:20px!important}
+  .related-product-grid{grid-template-columns:1fr!important}
+  .related-product-image-shell{height:300px}
+  .contact-hero-photo{min-height:350px!important;border-radius:22px!important}
+  .contact-hero-photo>div{inset:12px!important;padding:14px!important}
+  .contact-directory-copy h2{font-size:clamp(36px,10vw,48px)!important}
+  .phone-directory{grid-template-columns:1fr!important}
+  .phone-line-card{min-height:170px!important}
+  .service-line{grid-column:auto!important;display:flex!important;flex-direction:column!important;align-items:flex-start!important;min-height:170px!important}
+  .service-line strong{margin-top:auto!important}
+  .location-copy{padding:30px 22px!important}
+  .location-visual{min-height:360px!important}
+  .map-caption{max-width:calc(100% - 28px)!important;inset:14px!important}
+  .contact-business-card>img{min-height:340px!important}
+  .contact-business-card>div{padding:30px 22px!important}
+  .about-gallery figure,.about-gallery figure:nth-child(2),.about-gallery figure:nth-child(3){min-height:330px!important}
+}
+
+@media(max-width:390px){
+  .header-actions{gap:6px!important}
+  .header-brand .brand-logo{max-width:86px!important}
+  .product-detail-image-shell{height:310px}
+  .related-product-image-shell{height:260px}
+}
