@@ -1,3 +1,5 @@
+import { media } from './media';
+
 export const locales = ['ar', 'en', 'ku'] as const;
 export type Locale = (typeof locales)[number];
 export type PageKey = 'home' | 'about' | 'products' | 'quality' | 'contact';
@@ -38,6 +40,7 @@ export const site = {
   companyArabic: 'شركة بريق اللؤلؤة لتنقية وتعبئة المياه',
   baseUrl: process.env.NEXT_PUBLIC_SITE_URL || 'https://pearl-water-iraq-hostx0s-projects.vercel.app',
   legacyWebsite: 'https://pearl-iq.com/',
+  assetLibrary: 'https://drive.google.com/drive/folders/17EcQ4ZLaLxs-xsuAMHuEm8OAaesn0TDH',
   map: 'https://maps.app.goo.gl/2xrSgAAN3Sq8dqg78',
   city: 'Baghdad, Iraq',
   country: 'Iraq',
@@ -49,15 +52,15 @@ export const site = {
   ] as PhoneLine[],
   customerService: { kind: 'service', phone: '+9647704622005', display: '0770 462 2005' } as PhoneLine,
   logoSources: {
-    english: 'https://pngup.com/Fag7/English logo.png',
-    arabic: 'https://pngup.com/0wVE/»rabic logo .png',
+    english: media.logos.en,
+    arabic: media.logos.ar,
   },
 };
 
 export const productImages: Record<ProductSize, string> = {
-  '1000': 'https://www.pearl-iq.com/assets/img/1000.png',
-  '500': 'https://www.pearl-iq.com/assets/img/500.png',
-  '330': 'https://www.pearl-iq.com/assets/img/330.png',
+  '1000': media.products.front1000,
+  '500': media.products.front500,
+  '330': media.products.front330,
   '200': 'https://www.pearl-iq.com/assets/img/200-q.png',
 };
 

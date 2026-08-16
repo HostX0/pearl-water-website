@@ -3,6 +3,7 @@ import '../extra.css';
 import '../polish.css';
 import '../motion-polish.css';
 import '../experience.css';
+import '../media-system.css';
 import { notFound } from 'next/navigation';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
@@ -11,9 +12,7 @@ import { PearlIntro } from '@/components/PearlIntro';
 import { JsonLd } from '@/components/JsonLd';
 import { isLocale, localeMeta, locales, type Locale } from '@/lib/site';
 
-export function generateStaticParams() {
-  return locales.map((locale) => ({ locale }));
-}
+export function generateStaticParams() { return locales.map((locale) => ({ locale })); }
 
 const skipLabel = { en: 'Skip to content', ar: 'انتقل إلى المحتوى', ku: 'بڕۆ بۆ ناوەڕۆک' } as const;
 
@@ -26,8 +25,9 @@ export default async function LocaleLayout({ children, params }: { children: Rea
 
   return <html lang={meta.lang} dir={meta.dir}>
     <head>
+      <link rel="preconnect" href="https://drive.google.com"/>
+      <link rel="dns-prefetch" href="https://drive.google.com"/>
       <link rel="preconnect" href="https://www.pearl-iq.com"/>
-      <link rel="dns-prefetch" href="https://www.pearl-iq.com"/>
     </head>
     <body className={fontClass}>
       <a className="skip-link" href="#main-content">{skipLabel[locale]}</a>

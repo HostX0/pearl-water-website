@@ -1,12 +1,19 @@
-import type { Locale } from '@/lib/site';
+import { site, type Locale } from '@/lib/site';
 
 export function BrandLogo({ locale, inverted = false, className = '' }: { locale: Locale; inverted?: boolean; className?: string }) {
-  const src = locale === 'en' ? '/brand/pearl-en.webp' : '/brand/pearl-ar.webp';
+  const src = locale === 'en' ? site.logoSources.english : site.logoSources.arabic;
   const alt = locale === 'en'
     ? 'Pearl Purified Water'
     : locale === 'ku'
       ? 'Pearl — ئاوی پاککراو'
-      : 'اللؤلؤة مياه منقاة';
+      : 'اللؤلؤة — مياه منقاة';
 
-  return <img src={src} alt={alt} className={`brand-logo ${inverted ? 'brand-logo-inverted' : ''} ${className}`} />;
+  return <img
+    src={src}
+    alt={alt}
+    className={`brand-logo ${inverted ? 'brand-logo-inverted' : ''} ${className}`}
+    loading="eager"
+    decoding="async"
+    referrerPolicy="no-referrer"
+  />;
 }
