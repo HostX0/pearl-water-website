@@ -1,15 +1,19 @@
-const driveImage = (id: string, width = 2400) => `https://drive.google.com/thumbnail?id=${id}&sz=w${width}`;
+const optimizeImage = (src: string, width: number, quality = 90) =>
+  `/_next/image?url=${encodeURIComponent(src)}&w=${width}&q=${quality}`;
+
+const driveImage = (id: string, width = 1200, quality = 90) =>
+  optimizeImage(`https://drive.google.com/thumbnail?id=${id}&sz=w${width}`, width, quality);
 
 export const media = {
   logos: {
-    ar: driveImage('1h1CF6l-ZpZSII7upncjUIC01TAhn4-L_', 1400),
-    en: driveImage('1OC7oAaf306UyZALXExnlJGNjX9RpLpSt', 1400),
+    ar: driveImage('1h1CF6l-ZpZSII7upncjUIC01TAhn4-L_', 384, 92),
+    en: driveImage('1OC7oAaf306UyZALXExnlJGNjX9RpLpSt', 384, 92),
   },
   home: {
-    hero: driveImage('1jiYaUdEno-D-aUdsTnK4URnyRa4Bjg2x'),
+    hero: driveImage('1jiYaUdEno-D-aUdsTnK4URnyRa4Bjg2x', 1080, 90),
     carton: driveImage('1X6T5UP9FuxZP3KwFL_wamSr5fcl6cf76'),
     ripple: driveImage('1fLaoyhad38gjFsKbvpRQApj2TmXLqCll'),
-    purity: driveImage('1gi8HKhcBgPnSzzOhXsPQdZOHGw-UO0wS'),
+    purity: driveImage('1gi8HKhcBgPnSzzOhXsPQdZOHGw-UO0wS', 828, 90),
     process: driveImage('1BO8-BXaev2fKQ6M4OHfZpOE5lo-4s7el'),
     standards: driveImage('1KggyALGnwz_yyI1at8LB61ymMUhv0hGQ'),
     lifestyleFamily: driveImage('1olEJdbFM2NPyFkmXP98ELvLENJVUHrT9'),
@@ -20,9 +24,9 @@ export const media = {
   },
   products: {
     group: driveImage('1XpRn1i-qeKpobA8ivlj38IA_d7TKElc7'),
-    front1000: driveImage('1Q0dryDXEK10QCE9nxlEj5wlgnnVKkT9_', 1800),
-    front500: driveImage('1bCX49Fz8pW0jCE2l5Dr1YiyXprMzhZI8', 1800),
-    front330: driveImage('1HTPbe3e55cVuamJOqxy8IGTWjdd9Hdab', 1800),
+    front1000: driveImage('1Q0dryDXEK10QCE9nxlEj5wlgnnVKkT9_', 750, 90),
+    front500: driveImage('1bCX49Fz8pW0jCE2l5Dr1YiyXprMzhZI8', 750, 90),
+    front330: driveImage('1HTPbe3e55cVuamJOqxy8IGTWjdd9Hdab', 750, 90),
     carton: driveImage('1iXV4EuCQdja7XgmJkUfucZXh_ZSRfwIQ'),
     shrink: driveImage('1zGrsfbVexjb4Gm9sdCixVPoMgypPtbvi'),
     detail: driveImage('1p8LgGWyriWiAcojzG3lB60FI2sx-fKTs'),
