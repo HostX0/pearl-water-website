@@ -10,17 +10,17 @@ const footerCopy = {
   en: {
     privacy: 'Privacy', terms: 'Terms', rights: 'All rights reserved.',
     title: 'Pearl, made for everyday life in Iraq.', body: 'Purified water in four practical formats for home, work, hospitality and events.',
-    nav: 'Explore', sales: 'Sales', service: 'Customer service', location: 'Baghdad, Iraq', cta: 'Contact Pearl',
+    nav: 'Explore', navLabel: 'Footer navigation', sales: 'Sales', service: 'Customer service', location: 'Baghdad, Iraq', cta: 'Contact Pearl',
   },
   ar: {
     privacy: 'سياسة الخصوصية', terms: 'شروط الاستخدام', rights: 'جميع الحقوق محفوظة.',
     title: 'اللؤلؤة، جزء من تفاصيل يومنا.', body: 'مياه منقاة بأربعة أحجام عملية للبيت، العمل، الضيافة والمناسبات.',
-    nav: 'اكتشف', sales: 'المبيعات', service: 'خدمة العملاء', location: 'بغداد، العراق', cta: 'تواصل مع اللؤلؤة',
+    nav: 'اكتشف', navLabel: 'روابط التذييل', sales: 'المبيعات', service: 'خدمة العملاء', location: 'بغداد، العراق', cta: 'تواصل مع اللؤلؤة',
   },
   ku: {
     privacy: 'تایبەتمەندی', terms: 'مەرجەکانی بەکارهێنان', rights: 'هەموو مافەکان پارێزراون.',
     title: 'Pearl، بەشێک لە ژیانی ڕۆژانەی عێراق.', body: 'ئاوی پاککراو بە چوار قەبارەی پراکتیکی بۆ ماڵ و کار و میوانداری.',
-    nav: 'ببینە', sales: 'فرۆشتن', service: 'خزمەتگوزاری کڕیار', location: 'بەغدا، عێراق', cta: 'پەیوەندی بە Pearl بکە',
+    nav: 'ببینە', navLabel: 'بەستەرەکانی کۆتایی', sales: 'فرۆشتن', service: 'خزمەتگوزاری کڕیار', location: 'بەغدا، عێراق', cta: 'پەیوەندی بە Pearl بکە',
   },
 } as const;
 
@@ -33,23 +33,23 @@ export function Footer({ locale }: { locale: Locale }) {
   return <footer className="site-footer">
     <div className="site-shell footer-callout">
       <div><span className="eyebrow eyebrow-light">Pearl · Iraq</span><h2>{f.title}</h2><p>{f.body}</p></div>
-      <Link href={localizedPath(locale, 'contact')} className="footer-cta">{f.cta}<Arrow size={18}/></Link>
+      <Link href={localizedPath(locale, 'contact')} className="footer-cta">{f.cta}<Arrow size={18} aria-hidden="true"/></Link>
     </div>
 
     <div className="site-shell footer-grid footer-grid-refined">
       <div className="footer-brand"><BrandLogo locale={locale} inverted/><p>{c.brandLine}</p><span>{c.common.madeInIraq}</span></div>
 
-      <nav className="footer-nav" aria-label="Footer navigation">
+      <nav className="footer-nav" aria-label={f.navLabel}>
         <strong>{f.nav}</strong>
         {pages.map((page) => <Link key={page} href={localizedPath(locale, page)}>{c.nav[page]}</Link>)}
       </nav>
 
       <div className="footer-contact footer-contact-refined">
         <strong>{f.sales}</strong>
-        <div className="footer-phone-grid">{site.salesPhones.map((line) => <a key={line.phone} href={`tel:${line.phone}`} dir="ltr"><Phone size={14}/>{line.display}</a>)}</div>
+        <div className="footer-phone-grid">{site.salesPhones.map((line) => <a key={line.phone} href={`tel:${line.phone}`} dir="ltr"><Phone size={14} aria-hidden="true"/>{line.display}</a>)}</div>
         <strong>{f.service}</strong>
-        <a className="footer-service-link" href={`tel:${site.customerService.phone}`} dir="ltr"><Phone size={14}/>{site.customerService.display}</a>
-        <a className="footer-map-link" href={site.map} target="_blank" rel="noreferrer"><MapPin size={14}/>{f.location}</a>
+        <a className="footer-service-link" href={`tel:${site.customerService.phone}`} dir="ltr"><Phone size={14} aria-hidden="true"/>{site.customerService.display}</a>
+        <a className="footer-map-link" href={site.map} target="_blank" rel="noreferrer"><MapPin size={14} aria-hidden="true"/>{f.location}</a>
       </div>
     </div>
 
