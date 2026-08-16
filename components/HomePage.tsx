@@ -2,10 +2,12 @@ import Link from 'next/link';
 import { ArrowLeft, ArrowRight, Droplets, ShieldCheck, Sparkles, MapPin, Phone } from 'lucide-react';
 import { BrandLogo } from './BrandLogo';
 import { getContent } from '@/lib/content';
+import { getBrandCopy } from '@/lib/brand-copy';
 import { localizedPath, localizedProductPath, productImages, productSizes, site, type Locale } from '@/lib/site';
 
 export function HomePage({ locale }: { locale: Locale }) {
   const c = getContent(locale);
+  const p = getBrandCopy(locale);
   const Arrow = locale === 'en' ? ArrowRight : ArrowLeft;
   const icons = [Droplets, ShieldCheck, Sparkles, MapPin];
   const contactDirectoryLabel = locale === 'en' ? '5 contact lines' : locale === 'ar' ? '5 أرقام للتواصل' : '5 هێڵی پەیوەندی';
@@ -18,13 +20,13 @@ export function HomePage({ locale }: { locale: Locale }) {
       <div className="site-shell home-hero-grid">
         <div className="hero-copy">
           <span className="eyebrow">{c.home.eyebrow}</span>
-          <h1>{c.home.title.split('\n').map((line) => <span key={line}>{line}</span>)}</h1>
-          <p>{c.home.body}</p>
+          <h1>{p.home.heroTitle.split('\n').map((line) => <span key={line}>{line}</span>)}</h1>
+          <p>{p.home.heroBody}</p>
           <div className="hero-actions">
             <Link className="btn btn-primary" href={localizedPath(locale, 'products')}>{c.home.primary}<Arrow size={18}/></Link>
-            <Link className="btn btn-secondary" href={localizedPath(locale, 'about')}>{c.home.secondary}</Link>
+            <Link className="btn btn-secondary" href={localizedPath(locale, 'quality')}>{c.nav.quality}</Link>
           </div>
-          <div className="hero-proof"><span>{c.common.madeInIraq}</span><b>•</b><span>{c.common.sizes}</span></div>
+          <div className="hero-proof"><span>{c.common.madeInIraq}</span><b>•</b><span>{locale === 'en' ? '7-step purification' : locale === 'ar' ? 'عملية تنقية من 7 خطوات' : 'پرۆسەی پاککردنەوەی 7 هەنگاو'}</span></div>
         </div>
         <div className="hero-visual">
           <div className="hero-pearl" aria-hidden="true"/>
@@ -72,15 +74,24 @@ export function HomePage({ locale }: { locale: Locale }) {
         <div className="story-art" data-reveal>
           <div className="iraq-word">IRAQ</div><div className="story-pearl"/><div className="story-wave"/><span>{storyLocation}</span>
         </div>
-        <div data-reveal><span className="eyebrow">{c.home.storyKicker}</span><h2>{c.home.storyTitle}</h2><p className="lead">{c.home.storyBody}</p><blockquote>{c.home.storyQuote}</blockquote><Link href={localizedPath(locale, 'about')} className="text-link">{c.common.learnMore}<Arrow size={17}/></Link></div>
+        <div data-reveal><span className="eyebrow">{c.home.storyKicker}</span><h2>{p.home.storyTitle}</h2><p className="lead">{p.home.storyBody}</p><blockquote>{c.home.storyQuote}</blockquote><Link href={localizedPath(locale, 'about')} className="text-link">{c.common.learnMore}<Arrow size={17}/></Link></div>
       </div>
     </section>
 
-    <section className="quality-home">
+    <section className="quality-home quality-home-premium">
       <div className="site-shell quality-home-grid">
-        <div data-reveal><span className="eyebrow eyebrow-light">{c.home.qualityKicker}</span><h2>{c.home.qualityTitle}</h2><p>{c.home.qualityBody}</p><Link className="btn btn-white" href={localizedPath(locale, 'quality')}>{c.common.learnMore}<Arrow size={18}/></Link></div>
-        <div className="quality-home-steps">
-          {c.quality.steps.map((step) => <div key={step.no} data-reveal><span className="quality-line" data-reveal-line/><b>{step.no}</b><h3>{step.title}</h3><p>{step.body}</p></div>)}
+        <div className="quality-home-copy" data-reveal>
+          <span className="eyebrow eyebrow-light">{c.home.qualityKicker}</span>
+          <h2>{p.home.qualityTitle.split('\n').map((line) => <span key={line}>{line}</span>)}</h2>
+          <p>{p.home.qualityBody}</p>
+          <Link className="btn btn-white" href={localizedPath(locale, 'quality')}>{c.common.learnMore}<Arrow size={18}/></Link>
+        </div>
+        <div className="quality-proof-grid">
+          {p.home.qualityStats.map((stat, index) => <article className="quality-proof-card" key={stat.value} data-reveal>
+            <span>0{index + 1}</span>
+            <strong dir="ltr">{stat.value}</strong>
+            <p>{stat.label}</p>
+          </article>)}
         </div>
       </div>
     </section>

@@ -2,6 +2,7 @@ import '../globals.css';
 import '../extra.css';
 import '../polish.css';
 import '../motion-polish.css';
+import '../experience.css';
 import { notFound } from 'next/navigation';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
@@ -21,13 +22,14 @@ export default async function LocaleLayout({ children, params }: { children: Rea
   if (!isLocale(rawLocale)) notFound();
   const locale = rawLocale as Locale;
   const meta = localeMeta[locale];
+  const fontClass = locale === 'en' ? 'font-en' : locale === 'ku' ? 'font-ku' : 'font-ar';
 
   return <html lang={meta.lang} dir={meta.dir}>
     <head>
       <link rel="preconnect" href="https://www.pearl-iq.com"/>
       <link rel="dns-prefetch" href="https://www.pearl-iq.com"/>
     </head>
-    <body className={locale === 'en' ? 'font-en' : 'font-ar'}>
+    <body className={fontClass}>
       <a className="skip-link" href="#main-content">{skipLabel[locale]}</a>
       <PearlIntro locale={locale}/>
       <div className="scroll-progress" aria-hidden="true"><span className="scroll-progress-bar"/></div>
