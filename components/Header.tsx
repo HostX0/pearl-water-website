@@ -15,6 +15,7 @@ export function Header({ locale }: { locale: Locale }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const suffix = (pathname?.replace(/^\/(ar|en|ku)(?=\/|$)/, '') || '').replace(/^\/+/, '');
+  const localeHref = (target: Locale) => suffix ? `/${target}/${suffix}` : `/${target}`;
 
   return <header className="site-header" data-site-header>
     <div className="site-shell header-shell">
@@ -28,14 +29,19 @@ export function Header({ locale }: { locale: Locale }) {
       </nav>
       <div className="header-actions">
         <div className="language-switcher" aria-label="Language">
-          {locales.map((l) => <Link key={l} href={suffix ? `/${l}/${suffix}` : `/${l}`} className={l === locale ? 'active' : ''}>{l === 'ar' ? 'AR' : l === 'en' ? 'EN' : 'KU'}</Link>)}
+          {locales.map((l) => <Link key={l} href={localeHref(l)} className={l === locale ? 'active' : ''}>{l === 'ar' ? 'AR' : l === 'en' ? 'EN' : 'KU'}</Link>)}
         </div>
         <Link href={localizedPath(locale,'contact')} className="header-call"><Phone size={16}/><span>{c.common.contact}</span></Link>
         <button className="menu-button" onClick={() => setOpen(!open)} aria-label="Menu" aria-expanded={open}>{open ? <X/> : <Menu/>}</button>
       </div>
     </div>
     {open && <div className="site-shell mobile-menu">
-      {pages.map((page) => <Link key={page} href={localizedPath(locale, page)} onClick={() => setOpen(false)}>{c.nav[page]}</Link>)}
+      <nav className="mobile-menu-links" aria-label="Mobile navigation">
+        {pages.map((page) => <Link key={page} href={localizedPath(locale, page)} onClick={() => setOpen(false)}>{c.nav[page]}</Link>)}
+      </nav>
+      <div className="mobile-language-switcher" aria-label="Language">
+        {locales.map((l) => <Link key={l} href={localeHref(l)} className={l === locale ? 'active' : ''} onClick={() => setOpen(false)}>{l === 'ar' ? 'العربية' : l === 'en' ? 'English' : 'کوردی'}</Link>)}
+      </div>
     </div>}
   </header>;
 }
