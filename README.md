@@ -12,7 +12,7 @@ A multilingual profile website for Pearl / اللؤلؤة, built for Arabic, Eng
 ## Brand system
 Primary colors: Pearl Blue `#0A4E93`, Aqua `#2BB7E5`, Light Blue `#E6F4FB`, Pearl White `#F7F8FA`, Cool Grey `#D6DCE3`, Deep Pearl Navy `#073A70`.
 
-Approved Arabic and English logo assets live in `public/brand/`.
+Approved Arabic and English logo assets live in `public/brand/` and are optimized locally for the production website.
 
 ## Routes
 Each locale (`/ar`, `/en`, `/ku`) includes:
