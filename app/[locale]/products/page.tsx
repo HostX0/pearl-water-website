@@ -15,6 +15,9 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 const productExtra = {
   en: {
+    heroEyebrow: 'Pearl products',
+    heroTitle: 'A Pearl format for every part of the day.',
+    heroBody: 'Family table, workday, meeting or hospitality — choose the format that fits the moment without changing the Pearl experience you know.',
     range: 'Meet the full Pearl range.',
     rangeBody: 'Four practical formats, one familiar Pearl identity — ready for family tables, workdays, meetings and hospitality.',
     packaging: 'Made to fit real everyday moments.',
@@ -23,6 +26,9 @@ const productExtra = {
     use: 'Made for everyday use',
   },
   ar: {
+    heroEyebrow: 'منتجات اللؤلؤة',
+    heroTitle: 'لكل جزء من يومك، حجم لؤلؤة مناسب.',
+    heroBody: 'سفرة البيت، الدوام، الاجتماع أو الضيافة — اختار الحجم اللي يناسب اللحظة بنفس تجربة اللؤلؤة اللي تعرفها.',
     range: 'تعرّف على مجموعة اللؤلؤة كاملة.',
     rangeBody: 'أربعة أحجام عملية بهوية لؤلؤة واحدة — للبيت، العمل، الاجتماعات والضيافة.',
     packaging: 'كل حجم معمول لموقف حقيقي من يومك.',
@@ -31,6 +37,9 @@ const productExtra = {
     use: 'مصممة للاستخدام اليومي',
   },
   ku: {
+    heroEyebrow: 'بەرهەمەکانی Pearl',
+    heroTitle: 'بۆ هەر بەشێک لە ڕۆژەکەت، قەبارەیەکی Pearl هەیە.',
+    heroBody: 'مێزی خێزان، کار، کۆبوونەوە یان میوانداری — قەبارەکە هەڵبژێرە و هەمان ئەزموونی ئاشنای Pearl هەبێت.',
     range: 'کۆمەڵەی تەواوی Pearl بناسە.',
     rangeBody: 'چوار قەبارەی پراکتیکی بە یەک ناسنامەی Pearl، بۆ ماڵ و کار و کۆبوونەوە و میوانداری.',
     packaging: 'هەر قەبارەیەک بۆ ساتێکی ڕاستەقینەی ڕۆژ دروستکراوە.',
@@ -50,7 +59,7 @@ export default async function Products({ params }: { params: Promise<{ locale: s
   const directoryLabel = locale === 'en' ? 'Talk to sales' : locale === 'ar' ? 'تواصل مع المبيعات' : 'پەیوەندی بە فرۆشتنەوە بکە';
 
   return <>
-    <PageHero locale={locale} eyebrow={c.products.eyebrow} title={c.products.title} intro={c.products.intro}/>
+    <PageHero locale={locale} eyebrow={x.heroEyebrow} title={x.heroTitle} intro={x.heroBody}/>
 
     <section className="section products-range-visual">
       <div className="site-shell products-range-card" data-reveal>
@@ -71,6 +80,6 @@ export default async function Products({ params }: { params: Promise<{ locale: s
       </div>
     </section>
 
-    <section className="product-contact"><div className="site-shell simple-cta light" data-reveal><h2>{c.contact.sales}</h2><Link href={localizedPath(locale,'contact')} className="btn btn-white">{directoryLabel}<Arrow size={17}/></Link></div></section>
+    <section className="product-contact"><div className="site-shell simple-cta light" data-reveal><h2>{locale === 'ar' ? 'تحتاج اللؤلؤة للضيافة، العمل أو التوزيع؟' : locale === 'en' ? 'Need Pearl for hospitality, work or distribution?' : 'Pearl بۆ میوانداری، کار یان دابەشکردن دەوێت؟'}</h2><Link href={localizedPath(locale,'contact')} className="btn btn-white">{directoryLabel}<Arrow size={17}/></Link></div></section>
   </>;
 }
