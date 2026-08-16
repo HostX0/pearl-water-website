@@ -12,6 +12,8 @@ export function BrandLogo({ locale, inverted = false, className = '' }: { locale
     src={src}
     alt={alt}
     className={`brand-logo ${inverted ? 'brand-logo-inverted' : ''} ${className}`}
+    width={1254}
+    height={1254}
     loading="eager"
     decoding="async"
     referrerPolicy="no-referrer"
