@@ -70,13 +70,16 @@ jobs:
         if: steps.credentials.outputs.enabled == 'true'
         run: npm ci --no-audit --no-fund
 
-      - name: Pull Vercel production configuration
+      - name: Link Vercel project for CI
         if: steps.credentials.outputs.enabled == 'true'
-        run: npx --yes vercel@latest pull --yes --environment=production --token="$VERCEL_TOKEN"
+        shell: bash
+        run: |
+          mkdir -p .vercel
+          printf '{"orgId":"%s","projectId":"%s"}\n' "$VERCEL_ORG_ID" "$VERCEL_PROJECT_ID" > .vercel/project.json
 
       - name: Build Vercel output on GitHub
         if: steps.credentials.outputs.enabled == 'true'
-        run: npx --yes vercel@latest build --prod --token="$VERCEL_TOKEN"
+        run: npx --yes vercel@latest build --prod --yes --token="$VERCEL_TOKEN"
 
       - name: Deploy prebuilt production output
         if: steps.credentials.outputs.enabled == 'true'
