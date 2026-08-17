@@ -30,6 +30,57 @@
 /* Contact anchors land below the fixed header. */
 .contact-directory-section{scroll-margin-top:110px}
 
+/* Contact cards and real-map preview: same visual rhythm on every device. */
+.customer-service-card{
+  grid-column:1/-1!important;
+  justify-self:center!important;
+  width:100%!important;
+}
+.customer-service-card .phone-line-icon{
+  background:rgba(43,183,229,.13)!important;
+  color:#0a4e93!important;
+}
+.location-map-preview{
+  position:relative!important;
+  min-height:460px!important;
+  overflow:hidden!important;
+  isolation:isolate;
+  background:#dceef7!important;
+  border:1px solid rgba(10,78,147,.10)!important;
+}
+.location-map-embed{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  border:0;
+  display:block;
+  background:#e6f4fb;
+}
+.location-map-chip{
+  position:absolute;
+  z-index:3;
+  inset-inline-end:16px;
+  bottom:16px;
+  min-height:44px;
+  padding:0 14px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  border-radius:12px;
+  background:rgba(247,248,250,.94);
+  border:1px solid rgba(10,78,147,.12);
+  box-shadow:0 12px 30px rgba(7,58,112,.16);
+  backdrop-filter:blur(10px);
+  color:#073a70;
+  font-size:12px;
+  font-weight:800;
+  line-height:1.2;
+}
+.location-map-chip:hover{background:#fff;transform:translateY(-1px)}
+.location-map-chip:focus-visible{outline:3px solid #2bb7e5;outline-offset:3px}
+
 /* Final visual-rhythm pass: preserve the design, remove dead space and improve reading comfort. */
 :root{--muted:#586f81}
 
@@ -104,6 +155,7 @@
 }
 
 @media(min-width:980px){
+  .customer-service-card{width:calc(50% - 8px)!important}
   .pillar-card{min-height:230px!important;padding:clamp(22px,2vw,30px)!important}
   .pillar-card h3{margin-top:60px!important}
   .product-showcase-heading{margin-bottom:clamp(42px,4.8vw,68px)!important}
@@ -140,6 +192,25 @@
 @media(max-width:720px){
   .site-header{padding:9px 0}
   .header-shell{height:64px}
+
+  .customer-service-card{
+    grid-column:auto!important;
+    justify-self:stretch!important;
+    width:100%!important;
+  }
+  .location-map-preview{
+    min-height:320px!important;
+    order:-1!important;
+    border-radius:22px!important;
+  }
+  .location-map-embed{pointer-events:none}
+  .location-map-chip{
+    inset-inline-end:12px;
+    bottom:12px;
+    min-height:44px;
+    padding-inline:12px;
+    font-size:11.5px;
+  }
 
   .footer-grid-refined{
     grid-template-columns:1fr!important;
@@ -228,6 +299,12 @@
     align-items:center!important;
     font-size:10.5px!important;
   }
+}
+
+@media(max-width:390px){
+  .location-map-preview{min-height:285px!important}
+  .location-map-chip span{display:none}
+  .location-map-chip{width:44px;padding:0}
 }
 
 @media(max-width:360px){

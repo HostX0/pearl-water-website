@@ -42,6 +42,7 @@ export const site = {
   legacyWebsite: 'https://pearl-iq.com/',
   assetLibrary: 'https://drive.google.com/drive/folders/17EcQ4ZLaLxs-xsuAMHuEm8OAaesn0TDH',
   map: 'https://maps.app.goo.gl/2xrSgAAN3Sq8dqg78',
+  mapEmbed: 'https://www.google.com/maps?q=Bright%20Pearl%20for%20Purifying%20and%20Bottling%20Water%2C%20Baghdad%2C%20Iraq%2C%200770%20462%202005&z=16&output=embed',
   city: 'Baghdad, Iraq',
   country: 'Iraq',
   salesPhones: [

@@ -1,7 +1,6 @@
-import { Building2, ExternalLink, Headphones, MapPin, Navigation, Phone } from 'lucide-react';
+import { ExternalLink, Headphones, Navigation, Phone } from 'lucide-react';
 import { notFound } from 'next/navigation';
 import { PageHero } from '@/components/PageHero';
-import { media } from '@/lib/media';
 import { isLocale, site, type Locale } from '@/lib/site';
 import { pageMetadata } from '@/lib/seo';
 
@@ -25,6 +24,7 @@ const labels = {
     call: 'Call now',
     location: 'Baghdad, Iraq',
     mapNote: 'Open the map for directions to Pearl.',
+    mapTitle: 'Pearl Water location map in Baghdad',
   },
   ar: {
     heroEyebrow: 'تواصل مع اللؤلؤة',
@@ -40,6 +40,7 @@ const labels = {
     call: 'اتصل الآن',
     location: 'بغداد، العراق',
     mapNote: 'افتح الخريطة للوصول مباشرة إلى اللؤلؤة.',
+    mapTitle: 'خريطة موقع مياه اللؤلؤة في بغداد',
   },
   ku: {
     heroEyebrow: 'پەیوەندی بە Pearl',
@@ -55,6 +56,7 @@ const labels = {
     call: 'ئێستا پەیوەندی بکە',
     location: 'بەغدا، عێراق',
     mapNote: 'نەخشەکە بکەرەوە بۆ گەیشتن بە Pearl.',
+    mapTitle: 'نەخشەی شوێنی Pearl لە بەغدا',
   },
 } as const;
 
@@ -63,6 +65,8 @@ export default async function Contact({ params }: { params: Promise<{ locale: st
   if (!isLocale(raw)) notFound();
   const locale = raw as Locale;
   const l = labels[locale];
+  const mapLanguage = locale === 'en' ? 'en' : 'ar';
+  const mapEmbedUrl = `${site.mapEmbed}&hl=${mapLanguage}`;
 
   return <>
     <PageHero locale={locale} eyebrow={l.heroEyebrow} title={l.heroTitle} intro={l.heroBody}/>
@@ -77,14 +81,14 @@ export default async function Contact({ params }: { params: Promise<{ locale: st
         <div className="phone-directory">
           {site.salesPhones.map((line, index) => <a className="phone-line-card" href={`tel:${line.phone}`} key={line.phone} data-reveal>
             <span className="phone-line-index">0{index + 1}</span>
-            <span className="phone-line-icon"><Phone size={20}/></span>
+            <span className="phone-line-icon"><Phone size={20} aria-hidden="true"/></span>
             <span className="phone-line-label">{l.sales}</span>
             <strong dir="ltr">{line.display}</strong>
             <small>{l.call}</small>
           </a>)}
-          <a className="phone-line-card service-line" href={`tel:${site.customerService.phone}`} data-reveal>
+          <a className="phone-line-card customer-service-card" href={`tel:${site.customerService.phone}`} data-reveal>
             <span className="phone-line-index">CS</span>
-            <span className="phone-line-icon"><Headphones size={20}/></span>
+            <span className="phone-line-icon"><Headphones size={20} aria-hidden="true"/></span>
             <span className="phone-line-label">{l.service}</span>
             <strong dir="ltr">{site.customerService.display}</strong>
             <small>{l.call}</small>
@@ -101,20 +105,24 @@ export default async function Contact({ params }: { params: Promise<{ locale: st
           <p>{l.company}</p>
           <p className="location-note">{l.mapNote}</p>
           <a className="btn btn-primary" href={site.map} target="_blank" rel="noreferrer">
-            <Navigation size={18}/>{l.directions}<ExternalLink size={16}/>
+            <Navigation size={18} aria-hidden="true"/>{l.directions}<ExternalLink size={16} aria-hidden="true"/>
           </a>
         </div>
-        <a className="location-visual location-visual-photo" href={site.map} target="_blank" rel="noreferrer" aria-label={l.directions} data-map-visual>
-          <img src={media.contact.location} alt="" loading="lazy" decoding="async" referrerPolicy="no-referrer"/>
-          <div className="location-photo-shade"/>
-          <div className="map-grid" aria-hidden="true"/>
-          <div className="map-road road-a" aria-hidden="true"/>
-          <div className="map-road road-b" aria-hidden="true"/>
-          <div className="map-road road-c" aria-hidden="true"/>
-          <div className="map-rings" aria-hidden="true"><i/><i/><i/></div>
-          <div className="map-pin-core"><MapPin size={30}/></div>
-          <div className="map-caption"><Building2 size={18}/><span>{l.company}</span><strong>{l.location}</strong></div>
-        </a>
+        <div className="location-visual location-map-preview" data-map-visual>
+          <iframe
+            className="location-map-embed"
+            src={mapEmbedUrl}
+            title={l.mapTitle}
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            allowFullScreen
+          />
+          <a className="location-map-chip" href={site.map} target="_blank" rel="noreferrer" aria-label={l.directions}>
+            <Navigation size={16} aria-hidden="true"/>
+            <span>{l.directions}</span>
+            <ExternalLink size={14} aria-hidden="true"/>
+          </a>
+        </div>
       </div>
     </section>
   </>;
