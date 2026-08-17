@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation';
 import { PageHero } from '@/components/PageHero';
 import { ProductShowcase } from '@/components/ProductShowcase';
 import { getContent } from '@/lib/content';
-import { media } from '@/lib/media';
+import { media, mediaSources } from '@/lib/media';
 import { isLocale, localizedPath, type Locale } from '@/lib/site';
 import { pageMetadata } from '@/lib/seo';
 
@@ -59,7 +59,7 @@ export default async function Products({ params }: { params: Promise<{ locale: s
   const directoryLabel = locale === 'en' ? 'Talk to sales' : locale === 'ar' ? 'تواصل مع المبيعات' : 'پەیوەندی بە فرۆشتنەوە بکە';
 
   return <>
-    <PageHero locale={locale} eyebrow={x.heroEyebrow} title={x.heroTitle} intro={x.heroBody}/>
+    <PageHero locale={locale} eyebrow={x.heroEyebrow} title={x.heroTitle} intro={x.heroBody} visualSrc={mediaSources.pageHeroes.products} visualAlt={x.heroTitle}/>
 
     <section className="section products-range-visual">
       <div className="site-shell products-range-card" data-reveal>

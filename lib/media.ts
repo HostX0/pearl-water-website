@@ -12,6 +12,11 @@ export const mediaSources = {
     ar: driveSource('1h1CF6l-ZpZSII7upncjUIC01TAhn4-L_', 1400),
     en: driveSource('1OC7oAaf306UyZALXExnlJGNjX9RpLpSt', 1400),
   },
+  pageHeroes: {
+    about: driveSource('1tb3w5ErcGAGdE80pN-WI5q4jK6cGBKfO', 1600),
+    products: driveSource('1CXm1fqGJHewFB5EQVfo0Muf_hr4BAhmq', 1600),
+    quality: driveSource('1Qnp-mNO3-appynBH_ZGEfQI0lan9A-OU', 1600),
+  },
   home: {
     hero: driveSource('1jiYaUdEno-D-aUdsTnK4URnyRa4Bjg2x', 1600),
     purity: driveSource('1gi8HKhcBgPnSzzOhXsPQdZOHGw-UO0wS', 1600),

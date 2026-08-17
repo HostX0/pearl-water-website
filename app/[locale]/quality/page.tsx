@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import { PageHero } from '@/components/PageHero';
 import { QualityExperience } from '@/components/QualityExperience';
 import { getBrandCopy } from '@/lib/brand-copy';
+import { mediaSources } from '@/lib/media';
 import { isLocale, type Locale } from '@/lib/site';
 import { pageMetadata } from '@/lib/seo';
 
@@ -28,7 +29,7 @@ export default async function Quality({ params }: { params: Promise<{ locale: st
 
   return <>
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
-    <PageHero locale={locale} eyebrow={p.heroEyebrow} title={p.heroTitle} intro={p.heroIntro}/>
+    <PageHero locale={locale} eyebrow={p.heroEyebrow} title={p.heroTitle} intro={p.heroIntro} visualSrc={mediaSources.pageHeroes.quality} visualAlt={p.heroTitle}/>
 
     <QualityExperience locale={locale}/>
 

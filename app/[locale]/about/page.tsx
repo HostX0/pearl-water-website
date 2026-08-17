@@ -3,7 +3,7 @@ import { Droplets, MapPin, ShieldCheck, Sparkles, Factory, Gauge } from 'lucide-
 import { notFound } from 'next/navigation';
 import { PageHero } from '@/components/PageHero';
 import { getContent } from '@/lib/content';
-import { media } from '@/lib/media';
+import { media, mediaSources } from '@/lib/media';
 import { isLocale, localizedPath, type Locale } from '@/lib/site';
 import { pageMetadata } from '@/lib/seo';
 
@@ -110,7 +110,7 @@ export default async function About({ params }: { params: Promise<{ locale: stri
   const gallery = [media.about.factory, media.quality.hygiene, media.about.operations];
 
   return <>
-    <PageHero locale={locale} eyebrow={p.heroEyebrow} title={p.heroTitle} intro={p.heroBody}/>
+    <PageHero locale={locale} eyebrow={p.heroEyebrow} title={p.heroTitle} intro={p.heroBody} visualSrc={mediaSources.pageHeroes.about} visualAlt={p.heroTitle}/>
 
     <section className="section about-brand-visual">
       <div className="site-shell about-brand-card" data-reveal>
