@@ -14,6 +14,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
+  VERCEL_ORG_ID: team_84z3Wi8gBuabQ2QR3qJyo0Ou
   VERCEL_PROJECT_ID: prj_OoRDdJ65yDSD9Dx8Jvcv268acyF2
 
 jobs:
@@ -74,7 +75,7 @@ jobs:
         shell: bash
         run: |
           http_code=$(curl --silent --show-error --output /tmp/vercel-project.json --write-out '%{http_code}' \
-            "https://api.vercel.com/v9/projects/$VERCEL_PROJECT_ID" \
+            "https://api.vercel.com/v9/projects/$VERCEL_PROJECT_ID?teamId=$VERCEL_ORG_ID" \
             --header "Authorization: Bearer $VERCEL_TOKEN")
           if [ "$http_code" != "200" ]; then
             echo "Vercel project access failed with HTTP $http_code"
@@ -83,10 +84,14 @@ jobs:
           fi
           echo "Vercel project access verified."
 
+      - name: Pull Vercel production configuration
+        if: steps.credentials.outputs.enabled == 'true'
+        run: npx --yes vercel@latest pull --yes --environment=production --token="$VERCEL_TOKEN"
+
       - name: Build Vercel output on GitHub
         if: steps.credentials.outputs.enabled == 'true'
-        run: npx --yes vercel@latest build --prod --yes --project="$VERCEL_PROJECT_ID" --token="$VERCEL_TOKEN"
+        run: npx --yes vercel@latest build --prod --token="$VERCEL_TOKEN"
 
       - name: Deploy prebuilt production output
         if: steps.credentials.outputs.enabled == 'true'
-        run: npx --yes vercel@latest deploy --prebuilt --prod --archive=tgz --project="$VERCEL_PROJECT_ID" --token="$VERCEL_TOKEN"
+        run: npx --yes vercel@latest deploy --prebuilt --prod --archive=tgz --token="$VERCEL_TOKEN"
