@@ -8,7 +8,8 @@ import { BrandLogo } from './BrandLogo';
 import { getContent } from '@/lib/content';
 import { localizedPath, locales, type Locale, type PageKey } from '@/lib/site';
 
-const pages: PageKey[] = ['home', 'about', 'products', 'quality', 'contact'];
+const desktopPages: PageKey[] = ['home', 'about', 'products', 'quality'];
+const mobilePages: PageKey[] = [...desktopPages, 'contact'];
 
 const accessibilityCopy = {
   en: { primary: 'Primary navigation', mobile: 'Mobile navigation', language: 'Language', menu: 'Open menu', close: 'Close menu' },
@@ -31,7 +32,7 @@ export function Header({ locale }: { locale: Locale }) {
         <BrandLogo locale={locale} priority sizes="(max-width: 680px) 96px, (max-width: 900px) 112px, 145px"/>
       </Link>
       <nav className="desktop-nav" aria-label={a11y.primary}>
-        {pages.map((page) => {
+        {desktopPages.map((page) => {
           const href = localizedPath(locale, page);
           const active = pageIsActive(page, href);
           return <Link key={page} href={href} className={active ? 'active' : ''} aria-current={active ? 'page' : undefined}>{c.nav[page]}</Link>;
@@ -56,7 +57,7 @@ export function Header({ locale }: { locale: Locale }) {
     </div>
     {open && <div className="site-shell mobile-menu" id="mobile-navigation">
       <nav className="mobile-menu-links" aria-label={a11y.mobile}>
-        {pages.map((page) => {
+        {mobilePages.map((page) => {
           const href = localizedPath(locale, page);
           const active = pageIsActive(page, href);
           return <Link key={page} href={href} aria-current={active ? 'page' : undefined} onClick={() => setOpen(false)}>{c.nav[page]}</Link>;

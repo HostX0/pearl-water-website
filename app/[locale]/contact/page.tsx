@@ -15,19 +15,19 @@ const labels = {
     heroEyebrow: 'Contact Pearl', heroTitle: 'Need Pearl? Start here.', heroBody: 'For products, sales, distribution, hospitality or directions in Baghdad, choose the contact route that works best for you.',
     sales: 'Sales', salesTitle: 'Talk directly to Pearl sales.', salesBody: 'Choose any sales line below for product, wholesale, hospitality or distribution inquiries.',
     service: 'Customer service', visit: 'Find Pearl in Baghdad', company: 'Bright Pearl for Purifying and Bottling Water', directions: 'Get directions', call: 'Call now', location: 'Baghdad, Iraq', mapNote: 'Open the map and head straight to Pearl.',
-    businessTitle: 'Buying for a business, event or distribution?', businessBody: 'Talk to Pearl sales about product availability and the format that suits your business or event.', businessCta: 'Talk to sales',
+    businessTitle: 'Buying for a business, event or distribution?', businessBody: 'Talk to Pearl sales about product availability and the format that suits your business or event.', businessCta: 'View sales numbers',
   },
   ar: {
     heroEyebrow: 'تواصل مع اللؤلؤة', heroTitle: 'تحتاج اللؤلؤة؟ من هنا.', heroBody: 'للمنتجات، المبيعات، التوزيع، الضيافة أو الوصول إلينا في بغداد — اختار طريقة التواصل الأنسب إلك.',
     sales: 'المبيعات', salesTitle: 'احچي مباشرة ويا مبيعات اللؤلؤة.', salesBody: 'اختار أي رقم للمبيعات واستفسر عن المنتجات، الجملة، الضيافة أو التوزيع.',
     service: 'خدمة العملاء', visit: 'موقع اللؤلؤة', company: 'شركة بريق اللؤلؤة لتنقية وتعبئة المياه', directions: 'احصل على الاتجاهات', call: 'اتصل الآن', location: 'بغداد، العراق', mapNote: 'افتح الخريطة وخليها توصلك مباشرة للؤلؤة.',
-    businessTitle: 'تحتاج اللؤلؤة لشغلك، مناسبتك أو التوزيع؟', businessBody: 'احچي ويا فريق المبيعات عن توفر المنتجات والحجم الأنسب للشغل، الضيافة أو المناسبات.', businessCta: 'تواصل مع المبيعات',
+    businessTitle: 'تحتاج اللؤلؤة لشغلك، مناسبتك أو التوزيع؟', businessBody: 'احچي ويا فريق المبيعات عن توفر المنتجات والحجم الأنسب للشغل، الضيافة أو المناسبات.', businessCta: 'شوف أرقام المبيعات',
   },
   ku: {
     heroEyebrow: 'پەیوەندی بە Pearl', heroTitle: 'Pearl ـت دەوێت؟ لێرەوە دەست پێبکە.', heroBody: 'بۆ بەرهەم، فرۆشتن، دابەشکردن، میوانداری یان گەیشتن لە بەغدا، ڕێگای پەیوەندی گونجاو هەڵبژێرە.',
     sales: 'فرۆشتن', salesTitle: 'ڕاستەوخۆ لەگەڵ فرۆشتنی Pearl قسە بکە.', salesBody: 'هەر یەکێک لە هێڵەکانی فرۆشتن هەڵبژێرە بۆ پرسیاری بەرهەم، کۆمەڵفرۆشی، میوانداری یان دابەشکردن.',
     service: 'خزمەتگوزاری کڕیار', visit: 'شوێنی Pearl لە بەغدا', company: 'Bright Pearl for Purifying and Bottling Water', directions: 'ڕێنمایی وەربگرە', call: 'ئێستا پەیوەندی بکە', location: 'بەغدا، عێراق', mapNote: 'نەخشەکە بکەرەوە و ڕاستەوخۆ بڕۆ بۆ Pearl.',
-    businessTitle: 'Pearl بۆ کار، بۆنە یان دابەشکردن دەوێت؟', businessBody: 'لەگەڵ فرۆشتن قسە بکە دەربارەی بەردەستبوونی بەرهەم و قەبارەی گونجاو.', businessCta: 'پەیوەندی بە فرۆشتن',
+    businessTitle: 'Pearl بۆ کار، بۆنە یان دابەشکردن دەوێت؟', businessBody: 'لەگەڵ فرۆشتن قسە بکە دەربارەی بەردەستبوونی بەرهەم و قەبارەی گونجاو.', businessCta: 'ژمارەکانی فرۆشتن ببینە',
   },
 } as const;
 
@@ -42,7 +42,7 @@ export default async function Contact({ params }: { params: Promise<{ locale: st
 
     <section className="section contact-hero-media"><div className="site-shell contact-hero-photo" data-reveal><img src={media.contact.hero} alt={l.company} loading="eager" decoding="async" referrerPolicy="no-referrer"/><div><span>Pearl · Baghdad</span><strong>{l.company}</strong></div></div></section>
 
-    <section className="section contact-directory-section">
+    <section className="section contact-directory-section" id="sales">
       <div className="site-shell contact-directory-grid">
         <div className="contact-directory-copy" data-reveal><span className="eyebrow">{l.sales}</span><h2>{l.salesTitle}</h2><p>{l.salesBody}</p></div>
         <div className="phone-directory">
@@ -59,6 +59,6 @@ export default async function Contact({ params }: { params: Promise<{ locale: st
       </div>
     </section>
 
-    <section className="section contact-business-section"><div className="site-shell contact-business-card" data-reveal><img src={media.contact.b2b} alt={l.businessTitle} loading="lazy" decoding="async" referrerPolicy="no-referrer"/><div><span className="eyebrow">Pearl Business</span><h2>{l.businessTitle}</h2><p>{l.businessBody}</p><a className="btn btn-primary" href={`tel:${site.salesPhones[0].phone}`}><Truck size={18}/>{l.businessCta}</a></div></div></section>
+    <section className="section contact-business-section"><div className="site-shell contact-business-card" data-reveal><img src={media.contact.b2b} alt={l.businessTitle} loading="lazy" decoding="async" referrerPolicy="no-referrer"/><div><span className="eyebrow">Pearl Business</span><h2>{l.businessTitle}</h2><p>{l.businessBody}</p><a className="btn btn-primary" href="#sales"><Truck size={18}/>{l.businessCta}</a></div></div></section>
   </>;
 }
