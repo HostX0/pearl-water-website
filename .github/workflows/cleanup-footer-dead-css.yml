@@ -1,0 +1,45 @@
+name: Final footer CSS cleanup
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/cleanup-footer-dead-css.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Remove obsolete footer CTA styles
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          path = Path('app/refinement.css')
+          css = path.read_text()
+
+          css = css.replace('/* Footer — large callout + readable contact hierarchy */', '/* Footer — functional contact hierarchy */')
+          css = re.sub(r'\n\.footer-callout\{[^\n]*\}\n\.footer-callout h2\{[^\n]*\}\n\[dir=rtl\] \.footer-callout h2\{[^\n]*\}\n\.footer-callout p\{[^\n]*\}\n\.footer-cta\{[^\n]*\}', '', css)
+          css = css.replace('\n  .footer-callout{grid-template-columns:1fr;align-items:start}\n  .footer-cta{justify-self:start}', '')
+          css = css.replace('\n  .footer-callout{padding-top:50px;padding-bottom:38px}\n  .footer-callout h2{font-size:clamp(36px,10vw,48px)}', '')
+
+          path.write_text(css)
+          PY
+
+      - name: Remove one-shot workflow and commit cleanup
+        run: |
+          git rm .github/workflows/cleanup-footer-dead-css.yml
+          git add app/refinement.css
+          git config user.name "Abdulazeez A. Noaman"
+          git config user.email "42905848+HostX0@users.noreply.github.com"
+          git commit -m "chore: remove obsolete footer CTA styles"
+          git push origin HEAD:main
