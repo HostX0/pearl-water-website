@@ -1,4 +1,4 @@
-import { absoluteProductPath, productImages, productSizes, site, type Locale } from '@/lib/site';
+import { site, type Locale } from '@/lib/site';
 
 export function JsonLd({ locale }: { locale: Locale }) {
   const organizationName = locale === 'ar' ? site.arabicName : 'Pearl Water';
@@ -41,16 +41,6 @@ export function JsonLd({ locale }: { locale: Locale }) {
         publisher: { '@id': `${site.baseUrl}/#organization` },
         inLanguage: ['ar', 'en', 'ckb'],
       },
-      ...productSizes.map((size) => ({
-        '@type': 'Product',
-        '@id': `${absoluteProductPath(locale, size)}#product`,
-        name: `Pearl Purified Water ${size} ml`,
-        category: 'Purified Bottled Water',
-        brand: { '@type': 'Brand', name: 'Pearl' },
-        image: productImages[size],
-        url: absoluteProductPath(locale, size),
-        manufacturer: { '@id': `${site.baseUrl}/#organization` },
-      })),
     ],
   };
 
